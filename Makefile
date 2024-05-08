@@ -1,5 +1,5 @@
 build:
-	gcc -o2 -Wall -o MyGame ./src/*.c -lSDL2 -lSDL2_ttf
+	gcc -O2 -Wall -o MyGame ./src/*.c -lSDL2 -lSDL2_ttf -lSDL2_image
 
 run:
 	./MyGame

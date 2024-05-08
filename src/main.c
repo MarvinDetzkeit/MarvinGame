@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string.h>
 #include "header/constants.h"
 #include "header/player.h"
-#include "header/level.h"
 #include "header/camera.h"
+#include "header/level.h"
+#include "header/tiles.h"
+
 
 //Player variables
 Player *player = NULL;
@@ -22,6 +25,7 @@ int screenY;
 //Level variables
 Level *level = NULL;
 SDL_Rect levelObj;
+Tiles *tiles = NULL;
 
 //Render variables
 SDL_Window *window = NULL;
@@ -34,6 +38,8 @@ int initialize(void) {
         fprintf(stderr, "Failed initializing SDL.\n");
         return 0;
     }
+    IMG_Init(IMG_INIT_PNG);
+
     //init window
     window = SDL_CreateWindow(NULL,
     SDL_WINDOWPOS_CENTERED,
@@ -58,10 +64,12 @@ int initialize(void) {
 
     //initialize level
     level = malloc(sizeof(Level));
-    strcpy(level->name, "testlevel2.lvl");
+    strcpy(level->name, "testlevel.lvl");
     loadLevel(level);
     levelObj.w = TILESIZE;
     levelObj.h = TILESIZE;
+    tiles = malloc(sizeof(Tiles));
+    initTiles(tiles, renderer);
 
     //initialize player
     player = malloc(sizeof(Player));
@@ -134,16 +142,16 @@ void update(void) {
         }
     }
     if (player->movUp == 1) {
-        player->y -= PLAYERSPEED;
+        player->y -= PLAYERSPEED - ((player->movLeft + player->movRight) * (PLAYERSPEED / 4));
     }
     if (player->movDown == 1) {
-        player->y += PLAYERSPEED;
+        player->y += PLAYERSPEED - (player->movLeft + player->movRight) * (PLAYERSPEED / 4);
     }
     if (player->movLeft == 1) {
-        player->x -= PLAYERSPEED;
+        player->x -= PLAYERSPEED - (player->movUp + player->movDown) * (PLAYERSPEED / 4);
     }
     if (player->movRight == 1) {
-        player->x += PLAYERSPEED;
+        player->x += PLAYERSPEED - (player->movUp + player->movDown) * (PLAYERSPEED / 4);
     }
     calculateCameraPosition(camera, player);
 
@@ -165,6 +173,7 @@ void render(void) {
         for (int j = (camera->y / TILESIZE) - TILENUMY - 2; j < (camera->y / TILESIZE) + TILENUMY + 2; j++) {
             positionOnScreen(i * TILESIZE, j * TILESIZE);
             int tile = getTile(level, i, j);
+            /*
             switch (tile) {
             case -1:
                 break;
@@ -182,38 +191,17 @@ void render(void) {
                 //printf("Render black at x: %d y: %d\n", levelObj.x, levelObj.y);
                 SDL_RenderFillRect(renderer, &levelObj);
                 break;
-            case 2:
-                SDL_SetRenderDrawColor(renderer, 25, 198, 111, 255);
-                levelObj.x = screenX;
-                levelObj.y = screenY;
-                //printf("Render black at x: %d y: %d\n", levelObj.x, levelObj.y);
-                SDL_RenderFillRect(renderer, &levelObj);
-                break;
-            case 3:
-                SDL_SetRenderDrawColor(renderer, 123, 0, 152, 255);
-                levelObj.x = screenX;
-                levelObj.y = screenY;
-                //printf("Render black at x: %d y: %d\n", levelObj.x, levelObj.y);
-                SDL_RenderFillRect(renderer, &levelObj);
-                break;
-            case 4:
-                SDL_SetRenderDrawColor(renderer, 12, 159, 248, 255);
-                levelObj.x = screenX;
-                levelObj.y = screenY;
-                //printf("Render black at x: %d y: %d\n", levelObj.x, levelObj.y);
-                SDL_RenderFillRect(renderer, &levelObj);
-                break;
-            case 5:
-                SDL_SetRenderDrawColor(renderer, 110, 89, 21, 255);
-                levelObj.x = screenX;
-                levelObj.y = screenY;
-                //printf("Render black at x: %d y: %d\n", levelObj.x, levelObj.y);
-                SDL_RenderFillRect(renderer, &levelObj);
-                break;
             
             default:
                 break;
             }
+            */
+           
+           if (tile != -1) {
+            levelObj.x = screenX;
+            levelObj.y = screenY;
+            renderTile(renderer, tiles->textures[tile], &levelObj);
+           }
         }
     }
     
@@ -234,6 +222,7 @@ void cleanUp(void) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    IMG_Quit();
     free(player);
     unloadLevel(level);
     free(level);

@@ -14,6 +14,8 @@ typedef struct {
     int *tiles;
 } Level;
 
+void printLevelInformation(Level *l);
+
 void loadLevel(Level *l) {
     strcpy(path, "src/level/");
     strcat(path, l->name);
@@ -58,6 +60,7 @@ void loadLevel(Level *l) {
     }
     printf("Level \'%s\' loaded successfully.\n", l->name);
     fclose(file);
+    
 }
 
 void unloadLevel(Level *l) {
