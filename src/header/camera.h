@@ -1,7 +1,11 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "player.h" // Ensure Player struct is defined for use in function prototypes
+#include <stdio.h>
+#include <stdlib.h>
+#include "constants.h"
+#include "player.h"
+#include "level.h"
 
 typedef struct {
     int x;

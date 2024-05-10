@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "level.h"
+
 typedef struct
 {
     int x;
@@ -11,6 +13,7 @@ typedef struct
     int movRight;
 } Player;
 
-void printPosition(Player* p);
+void printPlayerPosition(Player* p);
+void movePlayer(Player *p, Level *l);
 
 #endif

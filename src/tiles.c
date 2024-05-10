@@ -15,7 +15,7 @@ typedef struct
 
 
 void initTiles(Tiles *t, SDL_Renderer *r) {
-    numTiles = 2;
+    numTiles = 2+1;
     nameLen = 20;
     SDL_Surface* surface = NULL;
     char path[15 + nameLen];
@@ -23,14 +23,15 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
     t->names = malloc(numTiles * sizeof(char*));
     t->textures = malloc(numTiles * sizeof(SDL_Texture*));
 
-    for (int i = 0; i < numTiles; i++) {
+    for (int i = 1; i < numTiles; i++) {
         t->names[i] = malloc(nameLen * sizeof(char));
     }
-    strcpy(t->names[0], "grass.png");
-    strcpy(t->names[1], "stone.png");
+    //skip index 0 because indices have to be negatable for collision detection and -0 == 0
+    strcpy(t->names[1], "grass.png");
+    strcpy(t->names[2], "stone.png");
 
     //Load Textures
-    for (int i = 0; i < numTiles; i++) {
+    for (int i = 1; i < numTiles; i++) {
         strcpy(path, "src/sprites/");
         strcat(path, t->names[i]);
         surface = IMG_Load(path);
@@ -41,8 +42,8 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
 }
 
 void cleanTiles(Tiles *t) {
-    for (int i = 0; i < numTiles; i++) {
-        free(t->textures[i]);
+    for (int i = 1; i < numTiles; i++) {
+        SDL_DestroyTexture(t->textures[i]);
         free(t->names[i]);
     }
     free(t->names);

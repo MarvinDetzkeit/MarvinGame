@@ -65,14 +65,14 @@ void loadLevel(Level *l) {
 
 void unloadLevel(Level *l) {
     free(l->tiles);
-    free(l->name);
+    l->tiles = NULL;
     //free(l); commented out because space might be used again to load in different level
 }
 
 int getTile(Level *l, int x, int y) {
     if (x < 0 || y < 0 || x >= l->x || y >= l->y) {
-        //return -1 if position is not on grid
-        return -1;
+        //return 0 if position is not on grid
+        return 0;
     }
     return l->tiles[x + (l->x * y)];
 }

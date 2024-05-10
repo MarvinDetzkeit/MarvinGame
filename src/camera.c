@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "header/constants.h"
 #include "header/player.h"
+#include "header/level.h"
 
 typedef struct {
     int x;

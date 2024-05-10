@@ -141,18 +141,7 @@ void update(void) {
                 }
         }
     }
-    if (player->movUp == 1) {
-        player->y -= PLAYERSPEED - ((player->movLeft + player->movRight) * (PLAYERSPEED / 4));
-    }
-    if (player->movDown == 1) {
-        player->y += PLAYERSPEED - (player->movLeft + player->movRight) * (PLAYERSPEED / 4);
-    }
-    if (player->movLeft == 1) {
-        player->x -= PLAYERSPEED - (player->movUp + player->movDown) * (PLAYERSPEED / 4);
-    }
-    if (player->movRight == 1) {
-        player->x += PLAYERSPEED - (player->movUp + player->movDown) * (PLAYERSPEED / 4);
-    }
+    movePlayer(player, level);
     calculateCameraPosition(camera, player);
 
 }
@@ -197,10 +186,10 @@ void render(void) {
             }
             */
            
-           if (tile != -1) {
+           if (tile != 0) {
             levelObj.x = screenX;
             levelObj.y = screenY;
-            renderTile(renderer, tiles->textures[tile], &levelObj);
+            renderTile(renderer, tiles->textures[abs(tile)], &levelObj);
            }
         }
     }
@@ -226,6 +215,7 @@ void cleanUp(void) {
     free(player);
     unloadLevel(level);
     free(level);
+    cleanTiles(tiles);
     printf("Cleaned up!\n");
 }
 
