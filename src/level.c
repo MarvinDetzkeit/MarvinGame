@@ -25,25 +25,25 @@ void loadLevel(Level *l) {
     char buffer[6];
     //Load Level size and player position
     if (fgets(buffer, 6, file) == NULL) {
-        fprintf(stderr, "Error while loading in level.\n");
+        fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
         fclose(file);
         return;
     }
     l->x = atoi(buffer);
     if (fgets(buffer, 6, file) == NULL) {
-        fprintf(stderr, "Error while loading in level.\n");
+        fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
         fclose(file);
         return;
     }
     l->y = atoi(buffer);
     if (fgets(buffer, 6, file) == NULL) {
-        fprintf(stderr, "Error while loading in level.\n");
+        fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
         fclose(file);
         return;
     }
     l->playerX = atoi(buffer);
     if (fgets(buffer, 6, file) == NULL) {
-        fprintf(stderr, "Error while loading in level.\n");
+        fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
         fclose(file);
         return;
     }
@@ -52,7 +52,7 @@ void loadLevel(Level *l) {
     l->tiles = malloc(l->x * l->y * sizeof(int));
     for (int i = 0; i < l->x * l->y; i++) {
         if (fgets(buffer, 6, file) == NULL) {
-            fprintf(stderr, "Error while loading in level.\n");
+            fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
             fclose(file);
             return;
         }

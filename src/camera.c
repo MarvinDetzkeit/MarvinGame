@@ -33,3 +33,9 @@ void calculateCameraPosition(Camera *c, Player *p) {
     }
 
 }
+
+//Camera control for the Level editor
+void calculateCameraPositionEditor(Camera *c, Player *p) {
+    c->x = p->x;
+    c->y = p->y;
+}

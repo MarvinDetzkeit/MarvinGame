@@ -64,7 +64,7 @@ int initialize(void) {
 
     //initialize level
     level = malloc(sizeof(Level));
-    strcpy(level->name, "testlevel.lvl");
+    strcpy(level->name, "test1.lvl");
     loadLevel(level);
     levelObj.w = TILESIZE;
     levelObj.h = TILESIZE;
@@ -154,7 +154,7 @@ void positionOnScreen(int x, int y) {
 
 void render(void) {
     //render window
-    SDL_SetRenderDrawColor(renderer, 0, 100, 100, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 100, 150, 255);
     SDL_RenderClear(renderer);
 
     //render level
@@ -162,34 +162,10 @@ void render(void) {
         for (int j = (camera->y / TILESIZE) - TILENUMY - 2; j < (camera->y / TILESIZE) + TILENUMY + 2; j++) {
             positionOnScreen(i * TILESIZE, j * TILESIZE);
             int tile = getTile(level, i, j);
-            /*
-            switch (tile) {
-            case -1:
-                break;
-            case 0:
-                SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            if (tile != 0) {
                 levelObj.x = screenX;
                 levelObj.y = screenY;
-                //printf("Render white at x: %d y: %d\n", levelObj.x, levelObj.y);
-                SDL_RenderFillRect(renderer, &levelObj);
-                break;
-            case 1:
-                SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                levelObj.x = screenX;
-                levelObj.y = screenY;
-                //printf("Render black at x: %d y: %d\n", levelObj.x, levelObj.y);
-                SDL_RenderFillRect(renderer, &levelObj);
-                break;
-            
-            default:
-                break;
-            }
-            */
-           
-           if (tile != 0) {
-            levelObj.x = screenX;
-            levelObj.y = screenY;
-            renderTile(renderer, tiles->textures[abs(tile)], &levelObj);
+                renderTile(renderer, tiles->textures[abs(tile)], &levelObj);
            }
         }
     }

@@ -21,4 +21,6 @@ void setCameraPosition(Camera *c, int x, int y);
 // Function to calculate and adjust the camera's position based on the player's position
 void calculateCameraPosition(Camera *c, Player *p);
 
+void calculateCameraPositionEditor(Camera *c, Player *p);
+
 #endif // CAMERA_H
