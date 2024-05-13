@@ -2,6 +2,7 @@
 A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI). The name is not final, will change when I figure out what the game will become.
 
 ## Current State
+### Game
 ![Current State of the game](src/pics/game.png)
 
 - You can move the player (currently a red cube) through a level
@@ -9,6 +10,7 @@ A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.goo
 - The player can collide with objects (e.g. the rocks below the player in the picture)
 - Most Pixel Art was created by me
 
+### Level Editor
 ![Level Editor](src/pics/levelEditor.png)
 
 - Level editor for building levels up to 1000x1000 Tiles in size
