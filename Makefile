@@ -26,11 +26,15 @@ clean:
 		rm "MyEditor"; \
 	fi
 
-fresh: clear build run
+fresh: clean build run
 
-debug: clear
+debug: clean
 	$(CC) $(DEBUGFLAGS) -o MyGame $(GAME_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
 	lldb ./MyGame
 
 feditor: clean editor
 	./MyEditor
+
+detitor: clean
+	$(CC) $(DEBUGFLAGS) -o MyEditor $(EDITOR_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
+	lldb ./MyEditor

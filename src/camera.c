@@ -22,8 +22,8 @@ void setCameraPosition(Camera *c, int x, int y) {
 void calculateCameraPosition(Camera *c, Player *p) {
     int difX = p->x - c->x;
     int difY = p->y - c->y;
-    int rangeX = (TILESIZE / 8) * 16;
-    int rangeY = (TILESIZE / 8) * 10;
+    int rangeX = (TILESIZE / 16) * 16;
+    int rangeY = (TILESIZE / 16) * 10;
 
     if (abs(difX) > rangeX) {
         c->x = p->x - ((difX / abs(difX)) * rangeX);

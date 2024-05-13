@@ -15,7 +15,7 @@ typedef struct
 
 
 void initTiles(Tiles *t, SDL_Renderer *r) {
-    numTiles = 28+1;
+    numTiles = 30+1;
     nameLen = 20;
     SDL_Surface* surface = NULL;
     char path[15 + nameLen];
@@ -45,16 +45,18 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
     strcpy(t->names[16], "dirtGrass7.png");
     strcpy(t->names[17], "dirtGrass8.png");
     strcpy(t->names[18], "dirtGrass9.png");
-    strcpy(t->names[19], "treeStump.png");
-    strcpy(t->names[20], "stoneGrass.png");
-    strcpy(t->names[21], "stoneGrass1.png");
-    strcpy(t->names[22], "stoneGrass2.png");
-    strcpy(t->names[23], "stoneGrass3.png");
-    strcpy(t->names[24], "stoneGrass4.png");
-    strcpy(t->names[25], "stoneGrass5.png");
-    strcpy(t->names[26], "stoneGrass6.png");
-    strcpy(t->names[27], "stoneGrass7.png");
-    strcpy(t->names[28], "stone.png");
+    strcpy(t->names[19], "dirtGrass10.png");
+    strcpy(t->names[20], "dirtGrass11.png");
+    strcpy(t->names[21], "treeStump.png");
+    strcpy(t->names[22], "stoneGrass.png");
+    strcpy(t->names[23], "stoneGrass1.png");
+    strcpy(t->names[24], "stoneGrass2.png");
+    strcpy(t->names[25], "stoneGrass3.png");
+    strcpy(t->names[26], "stoneGrass4.png");
+    strcpy(t->names[27], "stoneGrass5.png");
+    strcpy(t->names[28], "stoneGrass6.png");
+    strcpy(t->names[29], "stoneGrass7.png");
+    strcpy(t->names[30], "stone.png");
 
     //Load Textures
     for (int i = 1; i < numTiles; i++) {

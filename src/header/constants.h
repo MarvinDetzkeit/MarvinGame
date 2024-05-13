@@ -4,7 +4,7 @@
 #define SCREEN_WIDTH  1200
 #define SCREEN_HEIGHT  750
 
-#define TILESIZE 64
+#define TILESIZE 96
 #define TILENUMX (SCREEN_WIDTH / (2 * TILESIZE)) + 1
 #define TILENUMY (SCREEN_HEIGHT / (2 * TILESIZE)) + 1
 

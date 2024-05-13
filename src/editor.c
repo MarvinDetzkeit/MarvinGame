@@ -19,6 +19,7 @@ int current = 0;
 int draw = 0;
 int mouseX = 0;
 int mouseY = 0;
+int shiftCollision = 1;
 //0 for setting Tiles, 1 for deleting Tiles löschen, 2 for setting collision, 3 for setting Spawnpoint 
 int mode = 0;
 int playerSpawnX = 0;
@@ -28,6 +29,14 @@ int playerSpawnY = 0;
 SDL_Rect box;
 SDL_Rect tileItem;
 int grid = 1;
+SDL_Surface *textSurface;
+TTF_Font *font;
+SDL_Texture **inventoryNumbers;
+SDL_Texture **modeName;
+SDL_Rect numberRect;
+SDL_Rect modeRect;
+char **modes;
+
 
 //Player variables
 Player *player = NULL;
@@ -57,6 +66,7 @@ int initialize(void) {
         return 0;
     }
     IMG_Init(IMG_INIT_PNG);
+    TTF_Init();
 
     //init window
     window = SDL_CreateWindow(NULL,
@@ -103,9 +113,13 @@ int initialize(void) {
         free(level->tiles);
     }
     else {
+        level->playerX = 0;
+        level->playerY = 0;
         printf("Creating new level \'%s\'.\n", levelName);
     }
     level->tiles = editLevel;
+    playerSpawnX = ((sizeOfLevel - level->x) / 2) + level->playerX;
+    playerSpawnY = ((sizeOfLevel - level->y) / 2) + level->playerY;
     level->x = sizeOfLevel;
     level->y = sizeOfLevel;
     editLevel = NULL;
@@ -121,8 +135,8 @@ int initialize(void) {
     player->movDown = 0;
     player->movLeft = 0;
     player->movRight = 0;
-    playerSpawnX = sizeOfLevel / 2;
-    playerSpawnY = sizeOfLevel / 2;
+    playerSpawnX = ((sizeOfLevel - level->x) / 2) + level->playerX;
+    playerSpawnY = ((sizeOfLevel - level->y) / 2) + level->playerY;
 
     //initialize camera
     camera = malloc(sizeof(Camera));
@@ -134,14 +148,51 @@ int initialize(void) {
     }
 
     //initialize UI
-    box.h = 70;
+    box.h = 100;
     box.w = 630;
     box.x = (SCREEN_WIDTH - box.w) / 2;
     box.y = SCREEN_HEIGHT - box.h;
     tileItem.h = 64;
     tileItem.w = 64;
     tileItem.y = box.y + 3;
+    font = TTF_OpenFont("src/font/ArialBlack.ttf", 24);
+    if (!font) printf("Font is NULL\n");
+    inventoryNumbers = malloc(10 * sizeof(SDL_Texture*));
+    SDL_Color textColor = {255, 255, 255, 255};
+    char numberChar[2];
+    numberChar[1] = 0;
+    int texture_width, texture_height;
+    for (int i = 0; i < 9; i++) {
+        numberChar[0] = '0' + i+1;
+        textSurface = TTF_RenderText_Blended(font, numberChar, textColor);
+        inventoryNumbers[i] = SDL_CreateTextureFromSurface(renderer, textSurface);
+        SDL_QueryTexture(inventoryNumbers[i], NULL, NULL, &texture_width, &texture_height);
+        SDL_SetTextureBlendMode(inventoryNumbers[i], SDL_BLENDMODE_BLEND);
+        SDL_FreeSurface(textSurface);
+    }
+    numberRect.y = box.y + 70;
+    numberRect.h = texture_height;
+    numberRect.w = texture_width;
 
+    modes = malloc(4 * sizeof(char*));
+    for (int i = 0; i < 4; i++) modes[i] = malloc(sizeof(char) * 12);
+    strcpy(modes[0], "Build");
+    strcpy(modes[1], "Erase");
+    strcpy(modes[2], "Collision");
+    strcpy(modes[3], "Set Spawn");
+    modeName = malloc(4 * sizeof(SDL_Texture*));
+    for (int i = 0; i < 4; i++) {
+        textSurface = TTF_RenderText_Blended(font, modes[i], textColor);
+        modeName[i] = SDL_CreateTextureFromSurface(renderer, textSurface);
+        SDL_QueryTexture(modeName[i], NULL, NULL, &texture_width, &texture_height);
+        SDL_SetTextureBlendMode(modeName[i], SDL_BLENDMODE_BLEND);
+        SDL_FreeSurface(textSurface);
+    }
+    modeRect.h = 70;
+    modeRect.w = 630;
+    modeRect.x = (SCREEN_WIDTH - modeRect.w) / 2;
+    modeRect.y = 0;
+    TTF_CloseFont(font);
     return 1;
 }
 
@@ -195,16 +246,6 @@ void update(void) {
                     case SDLK_d:
                         player->movRight = 1 - player->movLeft;
                         break;
-                    case SDLK_g:
-                        grid = 1 - grid;
-                        break;
-                    case SDLK_m:
-                        mode = (mode + 1) % 4;
-                        printf("Switched to mode %d.\n", mode);
-                        break;
-                    case SDLK_0:
-                        saveLevel(level);
-                        break;
                     case SDLK_UP:
                         inventory[current] += 1;
                         if (inventory[current] >= numTiles) {
@@ -216,6 +257,9 @@ void update(void) {
                         if (inventory[current] < 2) {
                             inventory[current] = numTiles - 1;
                         }
+                        break;
+                    case SDLK_LSHIFT:
+                        shiftCollision = -1;
                         break;
                     case SDLK_1:
                         current = 0;
@@ -260,6 +304,19 @@ void update(void) {
                     case SDLK_d:
                         player->movRight = 0;
                         break;
+                    case SDLK_0:
+                        saveLevel(level);
+                        break;
+                    case SDLK_g:
+                        grid = 1 - grid;
+                        break;
+                    case SDLK_m:
+                        mode = (mode + 1) % 4;
+                        printf("Switched to mode %d.\n", mode);
+                        break;
+                    case SDLK_LSHIFT:
+                        shiftCollision = 1;
+                        break;
                 }
             
         }
@@ -271,7 +328,7 @@ void update(void) {
         if (-1 < store && store < sizeOfLevel*sizeOfLevel) {
         switch (mode) {
         case 0: 
-            level->tiles[store] = inventory[current];
+            level->tiles[store] = inventory[current] * shiftCollision;
             break;
         case 1:
             level->tiles[store] = 0;
@@ -333,6 +390,8 @@ void render(void) {
     SDL_RenderFillRect(renderer, &box);
     for (int i = 0; i < 9; i++) {
         tileItem.x = box.x + (70 * i) + 3;
+        numberRect.x = tileItem.x - 3;
+        SDL_RenderCopy(renderer, inventoryNumbers[i], NULL, &numberRect);
         if (i == current && mode == 0) {
             tileItem.x -= 3;
             tileItem.y -= 3;
@@ -348,6 +407,8 @@ void render(void) {
             renderTile(renderer, tiles->textures[inventory[i]], &tileItem);
         }
     }
+    SDL_RenderFillRect(renderer, &modeRect);
+    SDL_RenderCopy(renderer, modeName[mode], NULL, &modeRect);
 
     SDL_RenderPresent(renderer);
 }
@@ -370,7 +431,31 @@ void saveLevel(Level *l) {
             fprintf(f, "%d\n", level->tiles[x + (y * sizeOfLevel)]);
         }
     }
+    fclose(f);
+    printf("Saved level at %s.\n", pathE);
 
+}
+
+void cleanUp(void) {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    IMG_Quit();
+    free(player);
+    unloadLevel(level);
+    free(level);
+    cleanTiles(tiles);
+    for (int i = 0; i < 9; i++) {
+        SDL_DestroyTexture(inventoryNumbers[i]);
+    }
+    free(inventoryNumbers);
+    for (int i = 0; i < 4; i++) {
+        SDL_DestroyTexture(modeName[i]);
+        free(modes[i]);
+    }
+    free(modeName);
+    free(modes);
+    printf("Cleaned up!\n");
 }
 
 int main() {
@@ -380,5 +465,6 @@ int main() {
         update();
         render();
     }
+    cleanUp();
     
 }

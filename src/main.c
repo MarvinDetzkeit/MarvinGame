@@ -14,6 +14,7 @@
 //Player variables
 Player *player = NULL;
 SDL_Rect playerObj;
+SDL_Texture *playerSprite;
 
 //camera variables
 Camera *camera;
@@ -64,7 +65,7 @@ int initialize(void) {
 
     //initialize level
     level = malloc(sizeof(Level));
-    strcpy(level->name, "test1.lvl");
+    strcpy(level->name, "meadow.lvl");
     loadLevel(level);
     levelObj.w = TILESIZE;
     levelObj.h = TILESIZE;
@@ -178,7 +179,6 @@ void render(void) {
     playerObj.x = screenX;
     playerObj.y = screenY;
     SDL_RenderFillRect(renderer, &playerObj);
-
 
     SDL_RenderPresent(renderer);
 }
