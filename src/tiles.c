@@ -15,48 +15,40 @@ typedef struct
 
 
 void initTiles(Tiles *t, SDL_Renderer *r) {
-    numTiles = 30+1;
+    numTiles = 0;
     nameLen = 20;
     SDL_Surface* surface = NULL;
     char path[15 + nameLen];
 
-    t->names = malloc(numTiles * sizeof(char*));
-    t->textures = malloc(numTiles * sizeof(SDL_Texture*));
+    char **nameBuffer = malloc(500 * sizeof(char*));
+    strcpy(path, "src/data/TileNames.txt");
+    FILE *f = fopen(path, "r");
+    if (f) printf("File not NULL\n");
+
+    size_t cmp = 4;
+    while (1) {
+        nameBuffer[numTiles] = malloc(sizeof(char) * numTiles);
+        fgets(nameBuffer[numTiles], nameLen, f);
+        nameBuffer[numTiles][strcspn(nameBuffer[numTiles], "\n")] = 0;
+        numTiles++;
+        if (strlen(nameBuffer[numTiles-1]) <= cmp) {
+            free(nameBuffer[numTiles-1]);
+            break;
+        }
+    }
+    fclose(f);
+    f = NULL;
+    printf("Loaded Tile names in. %d\n", numTiles);
+
+    t->names = malloc((numTiles * sizeof(char*)) + 1);
+    t->textures = malloc((numTiles * sizeof(SDL_Texture*)) + 1);
 
     for (int i = 1; i < numTiles; i++) {
         t->names[i] = malloc(nameLen * sizeof(char));
+        strcpy(t->names[i], nameBuffer[i-1]);
+        free(nameBuffer[i-1]);
     }
-    //skip index 0 because indices have to be negatable for collision detection and -0 == 0
-    strcpy(t->names[1], "lines.png");
-    strcpy(t->names[2], "grass.png");
-    strcpy(t->names[3], "grass1.png");
-    strcpy(t->names[4], "grass2.png");
-    strcpy(t->names[5], "grass3.png");
-    strcpy(t->names[6], "grass4.png");
-    strcpy(t->names[7], "grass5.png");
-    strcpy(t->names[8], "grassRock.png");
-    strcpy(t->names[9], "dirtGrass.png");
-    strcpy(t->names[10], "dirtGrass1.png");
-    strcpy(t->names[11], "dirtGrass2.png");
-    strcpy(t->names[12], "dirtGrass3.png");
-    strcpy(t->names[13], "dirtGrass4.png");
-    strcpy(t->names[14], "dirtGrass5.png");
-    strcpy(t->names[15], "dirtGrass6.png");
-    strcpy(t->names[16], "dirtGrass7.png");
-    strcpy(t->names[17], "dirtGrass8.png");
-    strcpy(t->names[18], "dirtGrass9.png");
-    strcpy(t->names[19], "dirtGrass10.png");
-    strcpy(t->names[20], "dirtGrass11.png");
-    strcpy(t->names[21], "treeStump.png");
-    strcpy(t->names[22], "stoneGrass.png");
-    strcpy(t->names[23], "stoneGrass1.png");
-    strcpy(t->names[24], "stoneGrass2.png");
-    strcpy(t->names[25], "stoneGrass3.png");
-    strcpy(t->names[26], "stoneGrass4.png");
-    strcpy(t->names[27], "stoneGrass5.png");
-    strcpy(t->names[28], "stoneGrass6.png");
-    strcpy(t->names[29], "stoneGrass7.png");
-    strcpy(t->names[30], "stone.png");
+    free(nameBuffer);
 
     //Load Textures
     for (int i = 1; i < numTiles; i++) {

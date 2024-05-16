@@ -105,21 +105,24 @@ int initialize(void) {
         loadLevel(level);
         int startX = ((sizeOfLevel - level->x) / 2);
         int startY = ((sizeOfLevel - level->y) / 2);
+        playerSpawnX = startX + level->playerX;
+        playerSpawnY = startY + level->playerY;
+        printf("0: Playerspawn x=%d, y=%d\n", playerSpawnX, playerSpawnY);
         for (int i = startX; i < startX + level->x; i++) {
             for (int j = startY; j < startY + level->y; j++) {
                 editLevel[(j * sizeOfLevel) + i] = getTile(level, i - startX, j - startY);
+                
             }
         }
         free(level->tiles);
     }
     else {
-        level->playerX = 0;
-        level->playerY = 0;
+        playerSpawnX = ((sizeOfLevel - level->x) / 2);
+        playerSpawnY = ((sizeOfLevel - level->y) / 2);
         printf("Creating new level \'%s\'.\n", levelName);
     }
     level->tiles = editLevel;
-    playerSpawnX = ((sizeOfLevel - level->x) / 2) + level->playerX;
-    playerSpawnY = ((sizeOfLevel - level->y) / 2) + level->playerY;
+    printf("1: Playerspawn x=%d, y=%d\n", playerSpawnX, playerSpawnY);
     level->x = sizeOfLevel;
     level->y = sizeOfLevel;
     editLevel = NULL;
@@ -135,8 +138,6 @@ int initialize(void) {
     player->movDown = 0;
     player->movLeft = 0;
     player->movRight = 0;
-    playerSpawnX = ((sizeOfLevel - level->x) / 2) + level->playerX;
-    playerSpawnY = ((sizeOfLevel - level->y) / 2) + level->playerY;
 
     //initialize camera
     camera = malloc(sizeof(Camera));
@@ -155,7 +156,7 @@ int initialize(void) {
     tileItem.h = 64;
     tileItem.w = 64;
     tileItem.y = box.y + 3;
-    font = TTF_OpenFont("src/font/ArialBlack.ttf", 24);
+    font = TTF_OpenFont("src/data/ArialBlack.ttf", 24);
     if (!font) printf("Font is NULL\n");
     inventoryNumbers = malloc(10 * sizeof(SDL_Texture*));
     SDL_Color textColor = {255, 255, 255, 255};
@@ -334,8 +335,10 @@ void update(void) {
             level->tiles[store] = 0;
             break;
         case 3:
+            printf("3: Playerspawn x=%d, y=%d\n", playerSpawnX, playerSpawnY);
             playerSpawnX = store % sizeOfLevel;
             playerSpawnY = store / sizeOfLevel;
+            printf("4: Playerspawn x=%d, y=%d\n", playerSpawnX, playerSpawnY);
             break;
         }
         }
@@ -426,6 +429,7 @@ void saveLevel(Level *l) {
         if (i / sizeOfLevel > down && level->tiles[i] != 0) down = i / sizeOfLevel;
     }
     fprintf(f, "%d\n%d\n%d\n%d\n", right - left+1, down - up+1, playerSpawnX - left, playerSpawnY - up);
+    printf("Playerspawn x=%d, y=%d\n", playerSpawnX, playerSpawnY);
     for (int y = up; y <= down; y++) {
         for (int x = left; x <= right; x++) {
             fprintf(f, "%d\n", level->tiles[x + (y * sizeOfLevel)]);
