@@ -44,7 +44,7 @@ git clone https://github.com/MarvinDetzkeit/MarvinGame
 ### Compile
 ```
 cd MarvinGame
-make build
+make
 ```
 ### Run the Game
 ```
