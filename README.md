@@ -7,7 +7,8 @@ A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.goo
 
 - You can move the player (currently a red cube) through a level
 - The camera scrolls with the player
-- The player can collide with objects (e.g. the rocks below the player in the picture)
+- The player can collide with objects (e.g. the fence in the picture)
+- You can talk to NPCs (In the picture the player talks to the blue cube)
 - Most Pixel Art was created by me
 
 ### Level Editor
@@ -17,45 +18,39 @@ A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.goo
 - The code for the editor is a mess
 
 ## What is planned
-- Add more Pixel Art (Tiles and Characters)
-- Add NPCs
-- Add a dialogue system
-- Add an animation system
-- Add sound
-- Figure out gameplay
-- Clean up code (maybe)
+- [ ] Add more Pixel Art (Tiles and Characters)
+- [x] Add NPCs
+- [x] Add a dialogue system
+- [ ] Add an animation system
+- [ ] Add sound
+- [ ] Figure out gameplay
+- [ ] Add Menu
+- [ ] Add functionality to save game
+- [ ] Clean up code (maybe)
+
 
 ## How to run (On Mac and Linux)
-If you want to run this very unfinished game or the level editor, you need to install SDL2, SDL2\_ttf and SDL2\_image. If you're on Mac you can use homebrew.
+If you want to run this very unfinished game or the level editor, you need to install SDL2, SDL2\_ttf and SDL2\_image. On Mac you can use homebrew:
 
+### Install Dependencies on Mac
 ```
 brew install sdl2 sdl2_ttf sdl2_image
 ```
-Clone this repository and change into the directory.
 
+### Install Source files
 ```
 git clone https://github.com/MarvinDetzkeit/MarvinGame
+```
+### Compile
+```
 cd MarvinGame
-```
-If you have an Apple Silicon Mac, you can just run the executables and skip compiling. You can use Make for compiling.
-
-Compile the game
-
-```
 make build
 ```
-Run the game
-
+### Run the Game
 ```
-./MyGame
+./MarvinGame
 ```
-Compile the editor
-
+### Run the editor
 ```
-make editor
-```
-Run the editor
-
-```
-./MyEditor
+./MarvinEditor
 ```

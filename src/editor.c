@@ -11,6 +11,7 @@
 #include "header/level.h"
 #include "header/tiles.h"
 
+
 //values for editor
 int tilesize = 64;
 char pathE[50];
@@ -317,6 +318,24 @@ void update(void) {
                         break;
                     case SDLK_LSHIFT:
                         shiftCollision = 1;
+                        break;
+                    case SDLK_i:
+                        player->x /= tilesize;
+                        player->y /= tilesize;
+                        tilesize += 8;
+                        player->x *= tilesize;
+                        player->y *= tilesize;
+                        break;
+                    case SDLK_o:
+                        player->x /= tilesize;
+                        player->y /= tilesize;
+                        tilesize -= 8;
+                        player->x *= tilesize;
+                        player->y *= tilesize;
+                        break;
+                    case SDLK_r:
+                        player->x = sizeOfLevel * tilesize / 2;
+                        player->y = sizeOfLevel * tilesize / 2;
                         break;
                 }
             

@@ -3,38 +3,38 @@ CFLAGS=-O2 -lSDL2 -lSDL2_ttf -lSDL2_image
 DEBUGFLAGS=-Wall -g
 SRC_DIR=./src
 GAME_FILES=$(filter-out $(SRC_DIR)/editor.c, $(wildcard $(SRC_DIR)/*.c))
-EDITOR_FILES=$(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
+EDITOR_FILES=$(filter-out $(SRC_DIR)/main.c $(SRC_DIR)/game.c $(SRC_DIR)/objects.c $(SRC_DIR)/uiwidgets.c, $(wildcard $(SRC_DIR)/*.c))
 
 .PHONY: all build editor run clear fresh debug
 
 all: build editor
 
 build:
-	$(CC) $(CFLAGS) -o MyGame $(GAME_FILES)
+	$(CC) $(CFLAGS) -o MarvinGame $(GAME_FILES)
 
 editor:
-	$(CC) $(CFLAGS) -o MyEditor $(EDITOR_FILES)
+	$(CC) $(CFLAGS) -o MarvinEditor $(EDITOR_FILES)
 
 run:
-	./MyGame
+	./MarvinGame
 
 clean:
-	@if [ -f "MyGame" ]; then \
-		rm "MyGame"; \
+	@if [ -f "MarvinGame" ]; then \
+		rm "MarvinGame"; \
 	fi
-	@if [ -f "MyEditor" ]; then \
-		rm "MyEditor"; \
+	@if [ -f "MarvinEditor" ]; then \
+		rm "MarvinEditor"; \
 	fi
 
 fresh: clean build run
 
 debug: clean
-	$(CC) $(DEBUGFLAGS) -o MyGame $(GAME_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
-	lldb ./MyGame
+	$(CC) $(DEBUGFLAGS) -o MarvinGame $(GAME_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
+	lldb ./MarvinGame
 
 feditor: clean editor
-	./MyEditor
+	./MarvinEditor
 
 detitor: clean
-	$(CC) $(DEBUGFLAGS) -o MyEditor $(EDITOR_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
-	lldb ./MyEditor
+	$(CC) $(DEBUGFLAGS) -o MarvinEditor $(EDITOR_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
+	lldb ./MarvinEditor
