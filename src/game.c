@@ -17,9 +17,6 @@ Player *player = NULL;
 SDL_Rect playerObj;
 SDL_Texture *playerSprite;
 
-//NPC
-NPC *test;
-
 //camera variables
 Camera *camera;
 
@@ -54,6 +51,7 @@ void delay() {
 }
 
 int updateGame(void *ptr) {
+    int npc = 0;
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -93,12 +91,17 @@ int updateGame(void *ptr) {
                         player->movRight = 0;
                         break;
                     case SDLK_t:
-                        if (isClose(test, player)) {
-                            update = updateTalk;
-                            render = renderTalk; 
-                            updatePTR = (void *) test;
-                            player->movUp = 0;
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 3; j++) {
+                                if (!npc) npc = (getTile(level, (player->x / TILESIZE) + i - 1, (player->y / TILESIZE) + j - 1) & 0x0ff00000) >> 20;
+                            }
+                        }
+                        if (npc) {
+                            update = npcArr[npc].updateInteraction;
+                            render = npcArr[npc].renderInteraction;
+                            updatePTR = npcArr + npc;
                             player->movDown = 0;
+                            player->movUp = 0;
                             player->movLeft = 0;
                             player->movRight = 0;
                         }
@@ -120,31 +123,29 @@ void positionOnScreen(int x, int y) {
 
 void renderGame(void) {
     //render level
+    int npc;
+    int tile;
     for (int i = (camera->x / TILESIZE) - TILENUMX - 2; i < (camera->x / TILESIZE) + TILENUMX + 2; i++) {
         for (int j = (camera->y / TILESIZE) - TILENUMY - 2; j < (camera->y / TILESIZE) + TILENUMY + 2; j++) {
             positionOnScreen(i * TILESIZE, j * TILESIZE);
-            int tile = getTile(level, i, j);
+            tile = getTile(level, i, j);
             if (tile != 0) {
                 levelObj.x = screenX;
                 levelObj.y = screenY;
-                renderTile(renderer, tiles->textures[abs(tile)], &levelObj);
+                renderTile(renderer, tiles->textures[tile & 0x0000ffff], &levelObj);
+                npc = (tile & 0x0ff00000) >> 20;
+                if (npc) renderTile(renderer, npcArr[npc].sprite, &levelObj);
            }
         }
     }
-    
-    //render NPC
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    positionOnScreen(test->x, test->y);
-    playerObj.x = screenX;
-    playerObj.y = screenY;
-    SDL_RenderFillRect(renderer, &playerObj);
 
     //render player
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    //SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     positionOnScreen(player->x, player->y);
     playerObj.x = screenX;
     playerObj.y = screenY;
-    SDL_RenderFillRect(renderer, &playerObj);
+    //SDL_RenderFillRect(renderer, &playerObj);
+    renderTile(renderer, player->playerSprite, &playerObj);
 
 }
 
@@ -153,12 +154,12 @@ void cleanUp(void) {
     SDL_DestroyWindow(window);
     SDL_Quit();
     IMG_Quit();
+    cleanPlayer(player);
     free(player);
     unloadLevel(level);
     free(level);
     cleanTiles(tiles);
     cleanUIWidgets();
-    cleanNPC(test);
     printf("Cleaned up!\n");
 }
 
@@ -213,6 +214,7 @@ int initialize(void) {
     playerObj.w = TILESIZE;
     playerObj.x = (SCREEN_WIDTH - TILESIZE) / 2;
     playerObj.y = (SCREEN_HEIGHT - TILESIZE) / 2;
+    initPlayer(renderer, player);
 
     //initialize camera
     camera = malloc(sizeof(Camera));
@@ -221,12 +223,8 @@ int initialize(void) {
     //Init UIWidgets
     initUIWidgets();
 
-    //Init NPC
-    test = malloc(sizeof(NPC));
-    strcpy(test->name, "testNPC");
-    loadNPCText(test);
-    test->x = TILESIZE * 20;
-    test->y = TILESIZE * 10;
+    //Init NPCs
+    initNPCs(renderer);
 
     //Set funtion pointers for game loop
     update = updateGame;

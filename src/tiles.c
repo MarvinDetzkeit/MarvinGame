@@ -18,7 +18,7 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
     numTiles = 0;
     nameLen = 20;
     SDL_Surface* surface = NULL;
-    char path[15 + nameLen];
+    char path[20 + nameLen];
 
     char **nameBuffer = malloc(500 * sizeof(char*));
     strcpy(path, "src/data/TileNames.txt");
@@ -27,7 +27,7 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
 
     size_t cmp = 4;
     while (1) {
-        nameBuffer[numTiles] = malloc(sizeof(char) * numTiles);
+        nameBuffer[numTiles] = malloc(sizeof(char) * nameLen);
         fgets(nameBuffer[numTiles], nameLen, f);
         nameBuffer[numTiles][strcspn(nameBuffer[numTiles], "\n")] = 0;
         numTiles++;
@@ -38,7 +38,7 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
     }
     fclose(f);
     f = NULL;
-    printf("Loaded Tile names in. %d\n", numTiles);
+    printf("Loaded %d Tile names in.\n", numTiles);
 
     t->names = malloc((numTiles * sizeof(char*)) + 1);
     t->textures = malloc((numTiles * sizeof(SDL_Texture*)) + 1);
@@ -52,7 +52,7 @@ void initTiles(Tiles *t, SDL_Renderer *r) {
 
     //Load Textures
     for (int i = 1; i < numTiles; i++) {
-        strcpy(path, "src/sprites/");
+        strcpy(path, "src/data/sprites/");
         strcat(path, t->names[i]);
         surface = IMG_Load(path);
         t->textures[i] = SDL_CreateTextureFromSurface(r, surface);

@@ -22,7 +22,7 @@ void loadLevel(Level *l) {
 
     //load level from file 
     FILE *file = fopen(path, "r");
-    char buffer[6];
+    char buffer[12];
     //Load Level size and player position
     if (fgets(buffer, 6, file) == NULL) {
         fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
@@ -51,7 +51,7 @@ void loadLevel(Level *l) {
     //Load level tiles
     l->tiles = malloc(l->x * l->y * sizeof(int));
     for (int i = 0; i < l->x * l->y; i++) {
-        if (fgets(buffer, 6, file) == NULL) {
+        if (fgets(buffer, 12, file) == NULL) {
             fprintf(stderr, "Error while loading in level \'%s\'.\n", l->name);
             fclose(file);
             return;
@@ -75,6 +75,14 @@ int getTile(Level *l, int x, int y) {
         return 0;
     }
     return l->tiles[x + (l->x * y)];
+}
+
+int tileHasCollision(int tile) {
+    return tile & 0xf0000000;
+}
+
+int tileGetObject(int tile) {
+    return (tile & 0x0ff00000) >> 20;
 }
 
 //Get coordinates of TIle on which the player stands on

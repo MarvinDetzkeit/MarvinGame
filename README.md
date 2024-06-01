@@ -1,32 +1,37 @@
 # MarvinGame
-A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI). The name is not final, will change when I figure out what the game will become.
+A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI). In the game, you play as me in a simplified version of the world I experience day to day. In the game, the main mission is to help my friends and family.
 
 ## Current State
 ### Game
 ![Current State of the game](src/pics/game.png)
 
-- You can move the player (currently a red cube) through a level
+- You can move the player through a level
+- The player has a sprite and walking animations for 4 directions
 - The camera scrolls with the player
 - The player can collide with objects (e.g. the fence in the picture)
-- You can talk to NPCs (In the picture the player talks to the blue cube)
-- Most Pixel Art was created by me
+- You can talk to NPCs (In the picture the player talks to Tom)
+- All pixel art (except one tile) was created by me
+
+###Walk Animation
+![Animation](src/data/walking.gif)
 
 ### Level Editor
 ![Level Editor](src/pics/levelEditor.png)
 
 - Level editor for building levels up to 1000x1000 Tiles in size
+- You can place Tiles and give them collision
+- You can set the player spawn point
+- You can place NPCs
 - The code for the editor is a mess
 
 ## What is planned
-- [ ] Add more Pixel Art (Tiles and Characters)
-- [x] Add NPCs
-- [x] Add a dialogue system
-- [ ] Add an animation system
-- [ ] Add sound
-- [ ] Figure out gameplay
-- [ ] Add Menu
-- [ ] Add functionality to save game
-- [ ] Clean up code (maybe)
+- Add more Pixel Art
+- Add more NPCs
+- Add sound
+- Add Quest system
+- Add Menu
+- Add functionality to save game
+- Clean up code (maybe)
 
 
 ## How to run (On Mac and Linux)

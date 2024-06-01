@@ -24,4 +24,5 @@ int main() {
         SDL_RenderPresent(renderer);
     }
     cleanUp();
+    return 0;
 }

@@ -7,18 +7,18 @@
 #include "header/game.h"
 
 typedef struct {
-    SDL_Texture *sprite;
-    int x;
-    int y;
     char name[20];
+    SDL_Texture *sprite;
     char ***lines;
     int numLines;
     int countOuter;
     int countInner;
+    int (* updateInteraction)();
+    void (* renderInteraction)();
+
 } NPC;
 
 char *npcText;
-SDL_Rect objRect;
 NPC *npcArr;
 int numNPCs;
 
@@ -96,11 +96,49 @@ void loadNPCText(NPC *npc) {
     
 }
 
-//Assuming the array npcArr is filled
-void initNPCs() {
-    for (int i = 0; i < numNPCs; i++) {
-        loadNPCText(npcArr+i);
+//Ändere, sodass alles bei 1 anfängt
+void initNPCs(SDL_Renderer *r) {
+    numNPCs = 0;
+    int nameLen = 20;
+    char buffer[nameLen];
+    char path[20 + nameLen];
+    strcpy(path, "src/data/NPCNames.txt");
+    char **nameBuffer = malloc(500 * sizeof(char*));
+
+    FILE *f = fopen(path, "r");
+    size_t cmp = 2;
+    while (1) {
+        nameBuffer[numNPCs] = malloc(sizeof(char) * nameLen);
+        fgets(nameBuffer[numNPCs], nameLen, f);
+        nameBuffer[numNPCs][strcspn(nameBuffer[numNPCs], "\n")] = 0;
+        if (strlen(nameBuffer[numNPCs]) <= cmp) {
+            free(nameBuffer[numNPCs]);
+            break;
+        }
+        numNPCs++;
     }
+    fclose(f);
+    f = NULL;
+
+    SDL_Surface *s = NULL;
+    npcArr = malloc((numNPCs + 1) * sizeof(NPC));
+    for (int i = 1; i <= numNPCs; i++) {
+        strcpy(npcArr[i].name, nameBuffer[i-1]);
+        npcArr[i].countInner = 0;
+        npcArr[i].countOuter = 0;
+        stpcpy(path, "src/data/sprites/");
+        strcat(path, npcArr[i].name);
+        strcat(path, ".png");
+        s = IMG_Load(path);
+        npcArr[i].sprite = SDL_CreateTextureFromSurface(r, s);
+        SDL_FreeSurface(s);
+        loadNPCText(npcArr + i);
+        free(nameBuffer[i-1]);
+        npcArr[i].updateInteraction = updateTalk;
+        npcArr[i].renderInteraction = renderTalk;
+    }
+    free(nameBuffer);
+    printf("Loaded %d NPCs in.\n", numNPCs);
 
 }
 
@@ -122,18 +160,12 @@ void cleanNPC(NPC *n) {
         countOuter++;
     }
     free(n->lines);
-    printf("NPC cleaned!\n");
 }
 
 void cleanNPCs() {
-    for (int i = 0; i < numNPCs; i++) {
+    for (int i = 1; i <= numNPCs; i++) {
         cleanNPC(npcArr + i);
+        SDL_DestroyTexture(npcArr[i].sprite);
     }
-}
-
-//Return 1 if NPC is close enough for player to talk to
-int isClose(NPC *n, Player *p) {
-    double w = sqrt(pow((double)(p->x - n->x), 2.0) + pow((double)(p->y - n->y), 2.0));
-    printf("%f\n", w);
-    return (w < ((double) TILESIZE) * 1.5);
+    printf("Cleaned NPCs!\n");
 }

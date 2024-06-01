@@ -8,8 +8,9 @@
 #define TILENUMX (SCREEN_WIDTH / (2 * TILESIZE)) + 1
 #define TILENUMY (SCREEN_HEIGHT / (2 * TILESIZE)) + 1
 
-#define PLAYERSPEED TILESIZE / 16
-
 #define FPS 60
+
+#define PLAYERSPEED (60 * TILESIZE) / (16 * FPS)
+
 
 #endif

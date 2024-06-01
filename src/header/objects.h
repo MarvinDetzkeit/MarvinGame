@@ -1,33 +1,35 @@
 #ifndef OBJECTS_H
 #define OBJECTS_H
 
+#include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <math.h>
+#include "constants.h"
+#include "uiwidgets.h"
+#include "game.h"
 
-// Structure definition for NPC
 typedef struct {
-    SDL_Texture *sprite;
-    int x;
-    int y;
     char name[20];
+    SDL_Texture *sprite;
     char ***lines;
     int numLines;
     int countOuter;
     int countInner;
+    int (* updateInteraction)();
+    void (* renderInteraction)();
 } NPC;
 
-// Global variables
-extern char *npcText;
-extern SDL_Rect objRect;
-extern NPC *npcArr;
-extern int numNPCs;
+char *npcText;
+NPC *npcArr;
+int numNPCs;
 
-// Function prototypes
 int updateTalk(void *ptr);
 void renderTalk();
 void loadNPCText(NPC *npc);
-void initNPCs();
+void initNPCs(SDL_Renderer *r);
 void cleanNPC(NPC *n);
 void cleanNPCs();
-int isClose(NPC *n, Player *p);
 
 #endif // OBJECTS_H
+

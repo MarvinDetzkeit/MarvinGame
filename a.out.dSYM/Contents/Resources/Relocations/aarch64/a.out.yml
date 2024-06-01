@@ -1,0 +1,21 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     a.out
+relocations:
+  - { offsetInCU: 0x92, offset: 0x92, size: 0x8, addend: 0x0, symName: _isPrime, symObjAddr: 0x0, symBinAddr: 0x100003828, symSize: 0x7C }
+  - { offsetInCU: 0x121, offset: 0x121, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x4F4, symBinAddr: 0x100003D1C, symSize: 0xB8 }
+  - { offsetInCU: 0x199, offset: 0x199, size: 0x8, addend: 0x0, symName: _reHash, symObjAddr: 0x3C4, symBinAddr: 0x100003BEC, symSize: 0x130 }
+  - { offsetInCU: 0x1A1, offset: 0x1A1, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x4F4, symBinAddr: 0x100003D1C, symSize: 0xB8 }
+  - { offsetInCU: 0x223, offset: 0x223, size: 0x8, addend: 0x0, symName: _getElement, symObjAddr: 0x2F0, symBinAddr: 0x100003B18, symSize: 0xD4 }
+  - { offsetInCU: 0x22B, offset: 0x22B, size: 0x8, addend: 0x0, symName: _reHash, symObjAddr: 0x3C4, symBinAddr: 0x100003BEC, symSize: 0x130 }
+  - { offsetInCU: 0x281, offset: 0x281, size: 0x8, addend: 0x0, symName: _insertElement, symObjAddr: 0x1DC, symBinAddr: 0x100003A04, symSize: 0x114 }
+  - { offsetInCU: 0x289, offset: 0x289, size: 0x8, addend: 0x0, symName: _getElement, symObjAddr: 0x2F0, symBinAddr: 0x100003B18, symSize: 0xD4 }
+  - { offsetInCU: 0x2EF, offset: 0x2EF, size: 0x8, addend: 0x0, symName: _elementGetKey, symObjAddr: 0x1BC, symBinAddr: 0x1000039E4, symSize: 0x20 }
+  - { offsetInCU: 0x2F7, offset: 0x2F7, size: 0x8, addend: 0x0, symName: _insertElement, symObjAddr: 0x1DC, symBinAddr: 0x100003A04, symSize: 0x114 }
+  - { offsetInCU: 0x332, offset: 0x332, size: 0x8, addend: 0x0, symName: _createHashtable, symObjAddr: 0xD4, symBinAddr: 0x1000038FC, symSize: 0xE8 }
+  - { offsetInCU: 0x33A, offset: 0x33A, size: 0x8, addend: 0x0, symName: _elementGetKey, symObjAddr: 0x1BC, symBinAddr: 0x1000039E4, symSize: 0x20 }
+  - { offsetInCU: 0x391, offset: 0x391, size: 0x8, addend: 0x0, symName: _getNextPrime, symObjAddr: 0x7C, symBinAddr: 0x1000038A4, symSize: 0x58 }
+  - { offsetInCU: 0x399, offset: 0x399, size: 0x8, addend: 0x0, symName: _createHashtable, symObjAddr: 0xD4, symBinAddr: 0x1000038FC, symSize: 0xE8 }
+  - { offsetInCU: 0x3CD, offset: 0x3CD, size: 0x8, addend: 0x0, symName: _isPrime, symObjAddr: 0x0, symBinAddr: 0x100003828, symSize: 0x7C }
+  - { offsetInCU: 0x3D5, offset: 0x3D5, size: 0x8, addend: 0x0, symName: _getNextPrime, symObjAddr: 0x7C, symBinAddr: 0x1000038A4, symSize: 0x58 }
+...

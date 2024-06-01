@@ -10,18 +10,30 @@
 #include "header/camera.h"
 #include "header/level.h"
 #include "header/tiles.h"
+#include "header/objects.h"
+
+//Inits to make it compile
+int (*update)();
+void (*render)();
+void renderGame() {
+    return;
+}
+int updateGame(void *ptr) {
+    return 0;
+}
 
 
 //values for editor
 int tilesize = 64;
 char pathE[50];
 int inventory[9];
+int npcNumber = 1;
 int current = 0;
 int draw = 0;
 int mouseX = 0;
 int mouseY = 0;
-int shiftCollision = 1;
-//0 for setting Tiles, 1 for deleting Tiles löschen, 2 for setting collision, 3 for setting Spawnpoint 
+int shiftCollision = 0;
+//0 for setting Tiles, 1 for deleting Tiles löschen, 2 for setting collision, 3 for setting Spawnpoint, 4 for placing NPCs
 int mode = 0;
 int playerSpawnX = 0;
 int playerSpawnY = 0;
@@ -37,6 +49,7 @@ SDL_Texture **modeName;
 SDL_Rect numberRect;
 SDL_Rect modeRect;
 char **modes;
+SDL_Rect npcBox;
 
 
 //Player variables
@@ -61,7 +74,7 @@ SDL_Renderer *renderer = NULL;
 int running = 1;
 Uint32 time_last_frame = 0;
 
-int initialize(void) {
+int initializeEditor(void) {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         fprintf(stderr, "Failed initializing SDL.\n");
         return 0;
@@ -144,6 +157,9 @@ int initialize(void) {
     camera = malloc(sizeof(Camera));
     initCamera(camera, player->x, player->y);
 
+    //Init NPCs
+    initNPCs(renderer);
+
     //initialize inventory
     for (int i = 0; i < 9; i++) {
         inventory[i] = 2;
@@ -157,6 +173,10 @@ int initialize(void) {
     tileItem.h = 64;
     tileItem.w = 64;
     tileItem.y = box.y + 3;
+    npcBox.w = 70;
+    npcBox.h = box.h;
+    npcBox.x = box.w + box.x + 50;
+    npcBox.y = box.y;
     font = TTF_OpenFont("src/data/ArialBlack.ttf", 24);
     if (!font) printf("Font is NULL\n");
     inventoryNumbers = malloc(10 * sizeof(SDL_Texture*));
@@ -176,14 +196,15 @@ int initialize(void) {
     numberRect.h = texture_height;
     numberRect.w = texture_width;
 
-    modes = malloc(4 * sizeof(char*));
-    for (int i = 0; i < 4; i++) modes[i] = malloc(sizeof(char) * 12);
+    modes = malloc(5 * sizeof(char*));
+    for (int i = 0; i < 5; i++) modes[i] = malloc(sizeof(char) * 12);
     strcpy(modes[0], "Build");
     strcpy(modes[1], "Erase");
     strcpy(modes[2], "Collision");
     strcpy(modes[3], "Set Spawn");
-    modeName = malloc(4 * sizeof(SDL_Texture*));
-    for (int i = 0; i < 4; i++) {
+    strcpy(modes[4], "Place NPC");
+    modeName = malloc(5 * sizeof(SDL_Texture*));
+    for (int i = 0; i < 5; i++) {
         textSurface = TTF_RenderText_Blended(font, modes[i], textColor);
         modeName[i] = SDL_CreateTextureFromSurface(renderer, textSurface);
         SDL_QueryTexture(modeName[i], NULL, NULL, &texture_width, &texture_height);
@@ -209,7 +230,7 @@ int tileAtScreenPosition(int x, int y) {
 
 void saveLevel(Level *l);
 
-void update(void) {
+void updateEditor(void) {
     //Delay to cap game at 60FPS
     Uint32 wait_time = (1000 / FPS) - (SDL_GetTicks() - time_last_frame);
     if ((int)wait_time > 0) {
@@ -229,7 +250,12 @@ void update(void) {
                 break;
             case SDL_MOUSEBUTTONUP:
                 draw = 0;
-                if (mode == 2) level->tiles[tileAtScreenPosition(mouseX, mouseY)] *= -1;
+                if (mode == 2) level->tiles[tileAtScreenPosition(mouseX, mouseY)] = level->tiles[tileAtScreenPosition(mouseX, mouseY)] ^ 0xf0000000;
+                if (mode == 4) {
+                    level->tiles[tileAtScreenPosition(mouseX, mouseY)] = level->tiles[tileAtScreenPosition(mouseX, mouseY)] & 0xf00fffff;
+                    level->tiles[tileAtScreenPosition(mouseX, mouseY)] = level->tiles[tileAtScreenPosition(mouseX, mouseY)] ^ (npcNumber << 20);
+                    printf("Placing NPC with number %d, hex: 0x%08x, hex shifted 0x%08x\n", npcNumber, npcNumber, (npcNumber << 20));
+                }
                 break;
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
@@ -249,19 +275,27 @@ void update(void) {
                         player->movRight = 1 - player->movLeft;
                         break;
                     case SDLK_UP:
-                        inventory[current] += 1;
-                        if (inventory[current] >= numTiles) {
-                            inventory[current] = 2;
+                        if (mode == 0) {
+                        inventory[current]++;
+                        if (inventory[current] >= numTiles) inventory[current] = 2;
+                        }
+                        if (mode == 4) {
+                            npcNumber++;
+                            if (npcNumber > numNPCs) npcNumber = 1;
                         }
                         break;
                     case SDLK_DOWN:
-                        inventory[current] -= 1;
-                        if (inventory[current] < 2) {
-                            inventory[current] = numTiles - 1;
+                        if (mode == 0) {
+                            inventory[current]--;
+                            if (inventory[current] < 2) inventory[current] = numTiles - 1;
+                        }
+                        if (mode == 4) {
+                            npcNumber--;
+                            if (npcNumber < 1) npcNumber = numNPCs;
                         }
                         break;
                     case SDLK_LSHIFT:
-                        shiftCollision = -1;
+                        shiftCollision = 1;
                         break;
                     case SDLK_1:
                         current = 0;
@@ -313,11 +347,11 @@ void update(void) {
                         grid = 1 - grid;
                         break;
                     case SDLK_m:
-                        mode = (mode + 1) % 4;
+                        mode = (mode + 1) % 5;
                         printf("Switched to mode %d.\n", mode);
                         break;
                     case SDLK_LSHIFT:
-                        shiftCollision = 1;
+                        shiftCollision = 0;
                         break;
                     case SDLK_i:
                         player->x /= tilesize;
@@ -347,8 +381,8 @@ void update(void) {
         int store = tileAtScreenPosition(mouseX, mouseY);
         if (-1 < store && store < sizeOfLevel*sizeOfLevel) {
         switch (mode) {
-        case 0: 
-            level->tiles[store] = inventory[current] * shiftCollision;
+        case 0:
+            level->tiles[store] = inventory[current] ^ (0xf0000000 * shiftCollision);
             break;
         case 1:
             level->tiles[store] = 0;
@@ -376,7 +410,7 @@ void positionOnScreen(int x, int y) {
     screenY = y - camera->y + (SCREEN_HEIGHT / 2);
 }
 
-void render(void) {
+void renderEditor(void) {
     //render window
     SDL_SetRenderDrawColor(renderer, 0, 100, 150, 255);
     SDL_RenderClear(renderer);
@@ -384,18 +418,24 @@ void render(void) {
     //render level
     int tilenumx = (SCREEN_WIDTH / (2 * tilesize)) + 3;
     int tilenumy = (SCREEN_HEIGHT / (2 * tilesize)) + 3;
+    int tile;
+    int npc;
     for (int i = (camera->x / tilesize) - tilenumx; i < (camera->x / tilesize) + tilenumx; i++) {
         for (int j = (camera->y / tilesize) - tilenumy ; j < (camera->y / tilesize) + tilenumy; j++) {
             positionOnScreen(i * tilesize, j * tilesize);
-            int tile = getTile(level, i, j);
+            tile = getTile(level, i, j);
             levelObj.x = screenX;
             levelObj.y = screenY;
-            if (tile != 0) renderTile(renderer, tiles->textures[abs(tile)], &levelObj);
+            if (tile != 0) {
+                renderTile(renderer, tiles->textures[tile & 0x0000ffff], &levelObj);
+                npc = (tile & 0x0ff00000) >> 20;
+                if (npc) renderTile(renderer, npcArr[npc].sprite, &levelObj);
+            }
             if (grid) {
                 SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                 SDL_RenderDrawRect(renderer, &levelObj);
            }
-            if (tile < 0) {
+            if (tileHasCollision(tile)) {
                 SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
                 SDL_RenderDrawRect(renderer, &levelObj);
             }
@@ -410,6 +450,7 @@ void render(void) {
     //render UI
     SDL_SetRenderDrawColor(renderer, 10, 10, 10, 255);
     SDL_RenderFillRect(renderer, &box);
+    SDL_RenderFillRect(renderer, &npcBox);
     for (int i = 0; i < 9; i++) {
         tileItem.x = box.x + (70 * i) + 3;
         numberRect.x = tileItem.x - 3;
@@ -428,6 +469,20 @@ void render(void) {
         else {
             renderTile(renderer, tiles->textures[inventory[i]], &tileItem);
         }
+    }
+    if (mode == 4) {
+        tileItem.x = npcBox.x;
+        tileItem.y = npcBox.y;
+        tileItem.h = 70;
+        tileItem.w = 70;
+        renderTile(renderer, npcArr[npcNumber].sprite, &tileItem);
+        tileItem.h = 64;
+        tileItem.w = 64;
+    }
+    else {
+        tileItem.x = npcBox.x + 3;
+        tileItem.y = npcBox.y + 3;
+        renderTile(renderer, npcArr[npcNumber].sprite, &tileItem);
     }
     SDL_RenderFillRect(renderer, &modeRect);
     SDL_RenderCopy(renderer, modeName[mode], NULL, &modeRect);
@@ -459,7 +514,7 @@ void saveLevel(Level *l) {
 
 }
 
-void cleanUp(void) {
+void cleanUpEditor(void) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -467,6 +522,7 @@ void cleanUp(void) {
     free(player);
     unloadLevel(level);
     free(level);
+    cleanNPCs();
     cleanTiles(tiles);
     for (int i = 0; i < 9; i++) {
         SDL_DestroyTexture(inventoryNumbers[i]);
@@ -482,12 +538,12 @@ void cleanUp(void) {
 }
 
 int main() {
-    initialize();
+    initializeEditor();
     while (running)
     {
-        update();
-        render();
+        updateEditor();
+        renderEditor();
     }
-    cleanUp();
-    
+    cleanUpEditor();
+    return 0;
 }
