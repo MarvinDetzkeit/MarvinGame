@@ -85,6 +85,10 @@ int tileGetObject(int tile) {
     return (tile & 0x0ff00000) >> 20;
 }
 
+int tileGetTeleporter(int tile) {
+    return (tile & 0x000f0000) >> 16;
+}
+
 //Get coordinates of TIle on which the player stands on
 int getPlayerTileX(Level *l) {
     return l->playerX / TILESIZE;

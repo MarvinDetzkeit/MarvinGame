@@ -41,6 +41,7 @@ int updateTalk(void *ptr) {
                             npc->countInner = 0;
                             update = updateGame;
                             render = renderGame;
+                            npcText = "";
                         }
                         break;
 

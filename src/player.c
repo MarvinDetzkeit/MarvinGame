@@ -23,7 +23,7 @@ void printPlayerPosition(Player* p) {
 }
 
 //move player with collision; Tiles are marked as collidable by setting the 4 most significant bits to 1: 0xf...
-//for each direction, it checks 2 corners of the player rect
+//for each direction, it checks 2 corners of the player rect; now it checks a smaller rect which aligns with the player sprite
 //Collision only works properly for positive coordinates (level coordinates are always positive - levels start at (0, 0))
 void movePlayer(Player *p, Level *l) {
     //counts frames to chose right animation sprite
@@ -32,28 +32,28 @@ void movePlayer(Player *p, Level *l) {
     static int outerAnimation = 0;
     if (p->movLeft) {
         p->x -= PLAYERSPEED - (p->movUp + p->movDown) * (PLAYERSPEED / 4);
-        if (tileHasCollision(getTile(l, p->x / TILESIZE, p->y / TILESIZE)) || tileHasCollision(getTile(l, p->x / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
-            p->x += TILESIZE - (p->x % TILESIZE);
+        if (tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + (TILESIZE / 4)) / TILESIZE)) || tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
+            p->x += TILESIZE - (p->x % TILESIZE) - (TILESIZE / 4);
         }
         outerAnimation = 3;
     }
     if (p->movRight) {
         p->x += PLAYERSPEED - (p->movUp + p->movDown) * (PLAYERSPEED / 4);
-        if (tileHasCollision(getTile(l, (p->x + TILESIZE-1) / TILESIZE, p->y / TILESIZE)) || tileHasCollision(getTile(l, (p->x + TILESIZE-1) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
-            p->x -= (p->x % TILESIZE);
+        if (tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + (TILESIZE / 4)) / TILESIZE)) || tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
+            p->x -= (p->x % TILESIZE) - (TILESIZE / 4);
         }
         outerAnimation = 6;
     }
     if (p->movUp) {
         p->y -= PLAYERSPEED - ((p->movLeft + p->movRight) * (PLAYERSPEED / 4));
-        if (tileHasCollision(getTile(l, p->x / TILESIZE, p->y / TILESIZE)) || tileHasCollision(getTile(l, (p->x + TILESIZE-1) / TILESIZE, p->y / TILESIZE))) {
-            p->y += TILESIZE - (p->y % TILESIZE);
+        if (tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + (TILESIZE / 4)) / TILESIZE)) || tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + + (TILESIZE / 4)) / TILESIZE))) {
+            p->y += TILESIZE - (p->y % TILESIZE) - (TILESIZE / 4);
         }
         outerAnimation = 9;
     }
     if (p->movDown) {
         p->y += PLAYERSPEED - (p->movLeft + p->movRight) * (PLAYERSPEED / 4);
-        if (tileHasCollision(getTile(l, p->x / TILESIZE, (p->y + TILESIZE-1) / TILESIZE)) || tileHasCollision(getTile(l, (p->x + TILESIZE-1) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
+        if (tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE)) || tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
             p->y -= (p->y % TILESIZE);
         }
         outerAnimation = 0;
@@ -66,6 +66,10 @@ void movePlayer(Player *p, Level *l) {
     }
     p->playerSprite = p->sprites[outerAnimation + innerAnimation];
     frameCounter++;
+}
+
+int getPlayerTile(Player *p, Level *l) {
+    return tileGetTeleporter(getTile(l, (p->x + (TILESIZE / 2)) / TILESIZE, (p->y + TILESIZE - 1) / TILESIZE));
 }
 
 //Moving the player without collsion for the editor

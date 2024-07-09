@@ -26,6 +26,8 @@ int screenY;
 
 //Level variables
 Level *level = NULL;
+Level *overworld = NULL;
+Level *sublevel = NULL;
 SDL_Rect levelObj;
 Tiles *tiles = NULL;
 
@@ -48,6 +50,51 @@ void delay() {
         SDL_Delay(wait_time);
     }
     time_last_frame = SDL_GetTicks();
+}
+
+//Render blend effect for level transition
+void levelBlendEffct() {
+    static int fade0 = 0;
+    static int fade1 = 1;
+    static SDL_Rect rec = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    for (int i = 0; i <= 25; i++) {
+        delay();
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 5 + (fade0 * 250) + (i * 10 * fade1));
+        SDL_RenderClear(renderer);
+        renderGame();
+        SDL_RenderFillRect(renderer, &rec);
+        SDL_RenderPresent(renderer);
+    }
+    fade0 = 1 - fade0;
+    fade1 = -fade1;
+}
+
+void handleTeleportation() {
+    int teleporter = getPlayerTile(player, level);
+    if (!teleporter) return;
+    levelBlendEffct();
+    switch (teleporter)
+    {
+    //Return back to overworld
+    case 1:
+        unloadLevel(sublevel);
+        level = overworld;
+        player->x = (level->playerX * TILESIZE);
+        player->y = (level->playerY * TILESIZE) + 1;
+        break;
+    //goto Level wohnung.lvl
+    case 2:
+        level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
+        level->playerY = (player->y / TILESIZE) + 1;
+        strcpy(sublevel->name, "wohnung.lvl");
+        loadLevel(sublevel);
+        level = sublevel;
+        player->x = (level->playerX * TILESIZE);
+        player->y = (level->playerY * TILESIZE);
+        break;
+    }
+    calculateCameraPositionEditor(camera, player);
+    levelBlendEffct();
 }
 
 int updateGame(void *ptr) {
@@ -105,12 +152,14 @@ int updateGame(void *ptr) {
                             player->movLeft = 0;
                             player->movRight = 0;
                         }
+                        printPlayerPosition(player);
                         break;
                 }
         }
     }
     movePlayer(player, level);
-    calculateCameraPosition(camera, player);
+    handleTeleportation();
+    calculateCameraPositionEditor(camera, player);
 
     return 1;
 }
@@ -192,13 +241,17 @@ int initialize(void) {
         fprintf(stderr, "Failed to create renderer.\n");
         return 0;
     }
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
     //initialize level
-    level = malloc(sizeof(Level));
-    strcpy(level->name, "meadow.lvl");
-    loadLevel(level);
+    overworld = malloc(sizeof(Level));
+    sublevel = malloc(sizeof(Level));
+    //strcpy(level->name, "wohnung.lvl");
+    strcpy(overworld->name, "Luebeck.lvl");
+    loadLevel(overworld);
     levelObj.w = TILESIZE;
     levelObj.h = TILESIZE;
+    level = overworld;
     tiles = malloc(sizeof(Tiles));
     initTiles(tiles, renderer);
 

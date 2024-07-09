@@ -528,7 +528,7 @@ void cleanUpEditor(void) {
         SDL_DestroyTexture(inventoryNumbers[i]);
     }
     free(inventoryNumbers);
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         SDL_DestroyTexture(modeName[i]);
         free(modes[i]);
     }

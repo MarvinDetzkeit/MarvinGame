@@ -15,6 +15,7 @@
 #include "uiwidgets.h"
 
 // Function declarations
+void handleTeleportation();
 int updateGame(void *ptr);
 void delay(void);
 void positionOnScreen(int x, int y);

@@ -21,6 +21,7 @@ void unloadLevel(Level *l);
 int getTile(Level *l, int x, int y);
 int tileHasCollision(int tile);
 int tileGetObject(int tile);
+int tileGetTeleporter(int tile);
 int getPlayerTileX(Level *l);
 int getPlayerTileY(Level *l);
 void changePlayerPosition(Level *l, int x, int y);

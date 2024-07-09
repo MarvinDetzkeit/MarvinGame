@@ -21,6 +21,8 @@ typedef struct
 
 void printPlayerPosition(Player* p);
 
+int getPlayerTile(Player *p, Level *l);
+
 void movePlayer(Player *p, Level *l);
 
 void movePlayerEditor(Player *p);
