@@ -12,7 +12,7 @@ A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.goo
 - You can talk to NPCs (In the picture the player talks to Tom)
 - All pixel art (except one tile) was created by me
 
-###Walk Animation
+### Walk Animation
 ![Animation](src/data/walking.gif)
 
 ### Level Editor
