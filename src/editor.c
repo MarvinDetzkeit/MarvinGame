@@ -11,8 +11,10 @@
 #include "header/level.h"
 #include "header/tiles.h"
 #include "header/objects.h"
+#include "header/items.h"
 
 //Inits to make it compile
+Item** items;
 int (*update)();
 void (*render)();
 void renderGame() {
@@ -158,7 +160,10 @@ int initializeEditor(void) {
     initCamera(camera, player->x, player->y);
 
     //Init NPCs
-    initNPCs(renderer);
+    initNPCsEditor(renderer);
+
+    //Init Items
+    items = malloc(sizeof(Item*) * NUMOFITEMS); //needed for editor to compile
 
     //initialize inventory
     for (int i = 0; i < 9; i++) {

@@ -13,6 +13,7 @@
 #include "level.h"
 #include "tiles.h"
 #include "uiwidgets.h"
+#include "items.h"
 
 // Function declarations
 void handleTeleportation();
@@ -27,6 +28,8 @@ int initialize(void);
 extern Player *player;
 extern SDL_Rect playerObj;
 extern SDL_Texture *playerSprite;
+
+extern Item **items;
 
 extern Camera *camera;
 

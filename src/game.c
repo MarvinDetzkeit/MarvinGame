@@ -11,11 +11,14 @@
 #include "header/tiles.h"
 #include "header/uiwidgets.h"
 #include "header/objects.h"
+#include "header/items.h"
 
 //Player variables
 Player *player = NULL;
 SDL_Rect playerObj;
 SDL_Texture *playerSprite;
+
+Item **items;
 
 //camera variables
 Camera *camera;
@@ -92,7 +95,28 @@ void handleTeleportation() {
         player->x = (level->playerX * TILESIZE);
         player->y = (level->playerY * TILESIZE);
         break;
+    //goto Level omaundopa.lvl
+    case 3:
+    level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
+        level->playerY = (player->y / TILESIZE) + 1;
+        strcpy(sublevel->name, "omaundopa.lvl");
+        loadLevel(sublevel);
+        level = sublevel;
+        player->x = (level->playerX * TILESIZE);
+        player->y = (level->playerY * TILESIZE);
+        break;
+    //goto Level dixiklo.lvl
+    case 4:
+    level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
+        level->playerY = (player->y / TILESIZE) + 1;
+        strcpy(sublevel->name, "dixiklo.lvl");
+        loadLevel(sublevel);
+        level = sublevel;
+        player->x = (level->playerX * TILESIZE);
+        player->y = (level->playerY * TILESIZE);
+        break;
     }
+
     calculateCameraPositionEditor(camera, player);
     levelBlendEffct();
 }
@@ -154,6 +178,10 @@ int updateGame(void *ptr) {
                         }
                         printPlayerPosition(player);
                         break;
+                        case SDLK_i:
+                            itemSprite = items[1]->sprite;
+                            render = renderItemScreen;
+                            update = updateItemScreen;
                 }
         }
     }
@@ -257,17 +285,12 @@ int initialize(void) {
 
     //initialize player
     player = malloc(sizeof(Player));
-    player->x = (level->playerX * TILESIZE);
-    player->y = (level->playerY * TILESIZE);
-    player->movUp = 0;
-    player->movDown = 0;
-    player->movLeft = 0;
-    player->movRight = 0;
-    playerObj.h = TILESIZE;
-    playerObj.w = TILESIZE;
-    playerObj.x = (SCREEN_WIDTH - TILESIZE) / 2;
-    playerObj.y = (SCREEN_HEIGHT - TILESIZE) / 2;
-    initPlayer(renderer, player);
+    initPlayer(renderer, player, level, &playerObj);
+
+
+    //initialize items
+    items = malloc(sizeof(Item*) * NUMOFITEMS);
+    initItems(renderer, items);
 
     //initialize camera
     camera = malloc(sizeof(Camera));

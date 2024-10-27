@@ -1,5 +1,6 @@
 # MarvinGame
-A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI). In the game, you play as me in a simplified version of the world I experience day to day. In the game, the main mission is to help my friends and family.
+A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI). In the game, you play as me in a simplified version of the world I experience day to day. In the game, the main mission is to find the Döner recipe.
+This project is my first ever C project, and I learned a lot. I made a lot of mistakes, the biggest one is how header files are used, which I won't change as it is already too late for that.
 
 ## Current State
 ### Game

@@ -21,17 +21,11 @@ typedef struct {
     char *text;
 } Textbox;
 
-typedef struct {
-    int x;
-    int y;
-    char *name;
-    void (*click)();
-} Button;
-
 // Function declarations
 void initUIWidgets();
 void createTextTure(SDL_Renderer *r, char *text);
 void renderTextBox(SDL_Renderer *r);
+void renderItemBox(SDL_Renderer *r, SDL_Texture *itemSprite);
 void cleanUIWidgets();
 
 #endif // UI_WIDGETS_H

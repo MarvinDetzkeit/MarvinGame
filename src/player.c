@@ -15,8 +15,8 @@ typedef struct
     SDL_Texture *playerSprite;
     //Down: 0-2; Left: 3-5; Right: 6-8; Up: 9-11
     SDL_Texture **sprites;
+    int items[NUMOFITEMS];
 } Player;
-
 
 void printPlayerPosition(Player* p) {
     printf("Player Position: (%d, %d)\n", p->x, p->y);
@@ -88,9 +88,22 @@ void movePlayerEditor(Player *p) {
     }
 }
 
-void initPlayer(SDL_Renderer *r, Player *p) {
+void initPlayer(SDL_Renderer *r, Player *p, Level *l, SDL_Rect *rect) {
+    p->x = (l->playerX * TILESIZE);
+    p->y = (l->playerY * TILESIZE);
+    p->movUp = 0;
+    p->movDown = 0;
+    p->movLeft = 0;
+    p->movRight = 0;
+    rect->h = TILESIZE;
+    rect->w = TILESIZE;
+    rect->x = (SCREEN_WIDTH - TILESIZE) / 2;
+    rect->y = (SCREEN_HEIGHT - TILESIZE) / 2;
+    bzero(p->items, sizeof(int) * NUMOFITEMS);
+    //Load sprites
     p->sprites = malloc(12 * sizeof(SDL_Texture*));
 
+    printf("start loading player sprites...\n");
     SDL_Surface *s = IMG_Load("src/data/sprites/MarvinD0.png");
     p->sprites[0] = SDL_CreateTextureFromSurface(r, s);
     SDL_FreeSurface(s);
@@ -140,7 +153,7 @@ void initPlayer(SDL_Renderer *r, Player *p) {
     SDL_FreeSurface(s);
 
     p->playerSprite = p->sprites[0];
-    
+    printf("Player initialised\n");
 }
 
 void cleanPlayer(Player *p) {

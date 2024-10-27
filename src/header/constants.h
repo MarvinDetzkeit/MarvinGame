@@ -4,7 +4,7 @@
 #define SCREEN_WIDTH  1216
 #define SCREEN_HEIGHT  736
 
-#define TILESIZE 92
+#define TILESIZE 96
 #define TILENUMX (SCREEN_WIDTH / (2 * TILESIZE)) + 1
 #define TILENUMY (SCREEN_HEIGHT / (2 * TILESIZE)) + 1
 
@@ -12,5 +12,7 @@
 
 #define PLAYERSPEED (60 * TILESIZE) / (16 * FPS)
 
+#define NUMOFITEMS 8
+#define ITEMSIZE 160
 
 #endif

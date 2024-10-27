@@ -8,6 +8,7 @@
 #include "constants.h"
 #include "uiwidgets.h"
 #include "game.h"
+#include "items.h"
 
 typedef struct {
     char name[20];
@@ -18,6 +19,9 @@ typedef struct {
     int countInner;
     int (* updateInteraction)();
     void (* renderInteraction)();
+    Item *hasThis;
+    Item *needsThis;
+
 } NPC;
 
 char *npcText;
@@ -28,7 +32,11 @@ int updateTalk(void *ptr);
 void renderTalk();
 void loadNPCText(NPC *npc);
 void initNPCs(SDL_Renderer *r);
+void initNPCsEditor(SDL_Renderer *r);
 void cleanNPC(NPC *n);
+int updateQuest(void *ptr);
+int updateQuestB(void* ptr);
+int updateQuestC(void *ptr);
 void cleanNPCs();
 
 #endif // OBJECTS_H

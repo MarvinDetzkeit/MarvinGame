@@ -17,6 +17,7 @@ typedef struct
     int movRight;
     SDL_Texture *playerSprite;
     SDL_Texture **sprites;
+    int items[NUMOFITEMS];
 } Player;
 
 void printPlayerPosition(Player* p);
@@ -27,7 +28,7 @@ void movePlayer(Player *p, Level *l);
 
 void movePlayerEditor(Player *p);
 
-void initPlayer(SDL_Renderer *r, Player *p);
+void initPlayer(SDL_Renderer *r, Player *p, Level *l, SDL_Rect *rect);
 
 void cleanPlayer(Player *p);
 
