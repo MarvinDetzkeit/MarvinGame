@@ -13,6 +13,6 @@
 #define PLAYERSPEED (60 * TILESIZE) / (16 * FPS)
 
 #define NUMOFITEMS 8
-#define ITEMSIZE 160
+#define ITEMSIZE 256
 
 #endif

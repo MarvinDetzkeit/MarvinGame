@@ -7,6 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string.h>
+#include <SDL2/SDL_mixer.h>
 #include "constants.h"
 #include "player.h"
 #include "camera.h"
@@ -23,6 +24,7 @@ void positionOnScreen(int x, int y);
 void renderGame(void);
 void cleanUp(void);
 int initialize(void);
+void levelBlendEffect(void);
 
 // Global variables
 extern Player *player;

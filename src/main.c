@@ -11,16 +11,17 @@
 #include "header/level.h"
 #include "header/tiles.h"
 #include "header/uiwidgets.h"
+#include "header/animation.h"
 
 int main() {
     running = initialize();
     time_last_frame = SDL_GetTicks();
     while(running) {
         delay();
-        //SDL_SetRenderDrawColor(renderer, 0, 100, 150, 255);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         running = update(updatePTR);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+        animateWater();
         render();
         SDL_RenderPresent(renderer);
     }

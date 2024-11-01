@@ -36,11 +36,11 @@ This project is my first ever C project, and I learned a lot. I made a lot of mi
 
 
 ## How to run (On Mac and Linux)
-If you want to run this very unfinished game or the level editor, you need to install SDL2, SDL2\_ttf and SDL2\_image. On Mac you can use homebrew:
+If you want to run this very unfinished game or the level editor, you need to install SDL2, SDL2\_ttf, SDL2\_image and SDL2\_mixer. On Mac you can use homebrew:
 
 ### Install Dependencies on Mac
 ```
-brew install sdl2 sdl2_ttf sdl2_image
+brew install sdl2 sdl2_ttf sdl2_image sdl2_mixer
 ```
 
 ### Install Source files

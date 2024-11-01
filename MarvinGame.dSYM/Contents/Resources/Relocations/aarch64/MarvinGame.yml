@@ -2,109 +2,142 @@
 triple:          'arm64-apple-darwin'
 binary-path:     MarvinGame
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _initCamera, symObjAddr: 0x0, symBinAddr: 0x100003C6C, symSize: 0x30 }
-  - { offsetInCU: 0x33, offset: 0x33, size: 0x8, addend: 0x0, symName: _initCamera, symObjAddr: 0x0, symBinAddr: 0x100003C6C, symSize: 0x30 }
-  - { offsetInCU: 0x73, offset: 0x73, size: 0x8, addend: 0x0, symName: _setCameraPosition, symObjAddr: 0x30, symBinAddr: 0x100003C9C, symSize: 0x30 }
-  - { offsetInCU: 0xB3, offset: 0xB3, size: 0x8, addend: 0x0, symName: _calculateCameraPosition, symObjAddr: 0x60, symBinAddr: 0x100003CCC, symSize: 0x118 }
-  - { offsetInCU: 0x11D, offset: 0x11D, size: 0x8, addend: 0x0, symName: _calculateCameraPositionEditor, symObjAddr: 0x178, symBinAddr: 0x100003DE4, symSize: 0x34 }
-  - { offsetInCU: 0x26, offset: 0x257, size: 0x8, addend: 0x0, symName: _delay, symObjAddr: 0x0, symBinAddr: 0x100003E18, symSize: 0x60 }
-  - { offsetInCU: 0x3F, offset: 0x270, size: 0x8, addend: 0x0, symName: _player, symObjAddr: 0x8478, symBinAddr: 0x10000C018, symSize: 0x0 }
-  - { offsetInCU: 0x109, offset: 0x33A, size: 0x8, addend: 0x0, symName: _level, symObjAddr: 0x8480, symBinAddr: 0x10000C020, symSize: 0x0 }
-  - { offsetInCU: 0x193, offset: 0x3C4, size: 0x8, addend: 0x0, symName: _overworld, symObjAddr: 0x8488, symBinAddr: 0x10000C028, symSize: 0x0 }
-  - { offsetInCU: 0x1A8, offset: 0x3D9, size: 0x8, addend: 0x0, symName: _sublevel, symObjAddr: 0x8490, symBinAddr: 0x10000C030, symSize: 0x0 }
-  - { offsetInCU: 0x1BD, offset: 0x3EE, size: 0x8, addend: 0x0, symName: _tiles, symObjAddr: 0x8498, symBinAddr: 0x10000C038, symSize: 0x0 }
-  - { offsetInCU: 0x209, offset: 0x43A, size: 0x8, addend: 0x0, symName: _window, symObjAddr: 0x84A0, symBinAddr: 0x10000C040, symSize: 0x0 }
-  - { offsetInCU: 0x233, offset: 0x464, size: 0x8, addend: 0x0, symName: _renderer, symObjAddr: 0x84A8, symBinAddr: 0x10000C048, symSize: 0x0 }
-  - { offsetInCU: 0x25D, offset: 0x48E, size: 0x8, addend: 0x0, symName: _running, symObjAddr: 0x84B0, symBinAddr: 0x10000C050, symSize: 0x0 }
-  - { offsetInCU: 0x272, offset: 0x4A3, size: 0x8, addend: 0x0, symName: _time_last_frame, symObjAddr: 0x84B4, symBinAddr: 0x10000C054, symSize: 0x0 }
-  - { offsetInCU: 0x2A4, offset: 0x4D5, size: 0x8, addend: 0x0, symName: _updatePTR, symObjAddr: 0x84B8, symBinAddr: 0x10000C058, symSize: 0x0 }
-  - { offsetInCU: 0x2AE, offset: 0x4DF, size: 0x8, addend: 0x0, symName: _levelBlendEffct, symObjAddr: 0x60, symBinAddr: 0x100003E78, symSize: 0xF4 }
-  - { offsetInCU: 0x2CF, offset: 0x500, size: 0x8, addend: 0x0, symName: _levelBlendEffct.fade0, symObjAddr: 0x84C0, symBinAddr: 0x10000C148, symSize: 0x0 }
-  - { offsetInCU: 0x2E4, offset: 0x515, size: 0x8, addend: 0x0, symName: _levelBlendEffct.fade1, symObjAddr: 0xE88, symBinAddr: 0x10000C000, symSize: 0x0 }
-  - { offsetInCU: 0x2F9, offset: 0x52A, size: 0x8, addend: 0x0, symName: _levelBlendEffct.rec, symObjAddr: 0xE8C, symBinAddr: 0x10000C004, symSize: 0x0 }
-  - { offsetInCU: 0x36F, offset: 0x5A0, size: 0x8, addend: 0x0, symName: _npcText, symBinAddr: 0x10000C088, symSize: 0x0 }
-  - { offsetInCU: 0x384, offset: 0x5B5, size: 0x8, addend: 0x0, symName: _npcArr, symBinAddr: 0x10000C080, symSize: 0x0 }
-  - { offsetInCU: 0x49F, offset: 0x6D0, size: 0x8, addend: 0x0, symName: _numNPCs, symBinAddr: 0x10000C090, symSize: 0x0 }
-  - { offsetInCU: 0x4B4, offset: 0x6E5, size: 0x8, addend: 0x0, symName: _playerObj, symBinAddr: 0x10000C094, symSize: 0x0 }
-  - { offsetInCU: 0x4C9, offset: 0x6FA, size: 0x8, addend: 0x0, symName: _playerSprite, symBinAddr: 0x10000C0A8, symSize: 0x0 }
-  - { offsetInCU: 0x4DE, offset: 0x70F, size: 0x8, addend: 0x0, symName: _items, symBinAddr: 0x10000C068, symSize: 0x0 }
-  - { offsetInCU: 0x4F8, offset: 0x729, size: 0x8, addend: 0x0, symName: _camera, symBinAddr: 0x10000C060, symSize: 0x0 }
-  - { offsetInCU: 0x53A, offset: 0x76B, size: 0x8, addend: 0x0, symName: _screenX, symBinAddr: 0x10000C0B8, symSize: 0x0 }
-  - { offsetInCU: 0x54F, offset: 0x780, size: 0x8, addend: 0x0, symName: _screenY, symBinAddr: 0x10000C0BC, symSize: 0x0 }
-  - { offsetInCU: 0x564, offset: 0x795, size: 0x8, addend: 0x0, symName: _levelObj, symBinAddr: 0x10000C070, symSize: 0x0 }
-  - { offsetInCU: 0x579, offset: 0x7AA, size: 0x8, addend: 0x0, symName: _update, symBinAddr: 0x10000C0C0, symSize: 0x0 }
-  - { offsetInCU: 0x59E, offset: 0x7CF, size: 0x8, addend: 0x0, symName: _render, symBinAddr: 0x10000C0B0, symSize: 0x0 }
-  - { offsetInCU: 0xC2E, offset: 0xE5F, size: 0x8, addend: 0x0, symName: _delay, symObjAddr: 0x0, symBinAddr: 0x100003E18, symSize: 0x60 }
-  - { offsetInCU: 0xC52, offset: 0xE83, size: 0x8, addend: 0x0, symName: _renderGame, symObjAddr: 0x154, symBinAddr: 0x100003F6C, symSize: 0x254 }
-  - { offsetInCU: 0xCBC, offset: 0xEED, size: 0x8, addend: 0x0, symName: _handleTeleportation, symObjAddr: 0x3A8, symBinAddr: 0x1000041C0, symSize: 0x268 }
-  - { offsetInCU: 0xCE0, offset: 0xF11, size: 0x8, addend: 0x0, symName: _updateGame, symObjAddr: 0x610, symBinAddr: 0x100004428, symSize: 0x468 }
-  - { offsetInCU: 0xD5D, offset: 0xF8E, size: 0x8, addend: 0x0, symName: _positionOnScreen, symObjAddr: 0xAD4, symBinAddr: 0x1000048EC, symSize: 0x5C }
-  - { offsetInCU: 0xD8F, offset: 0xFC0, size: 0x8, addend: 0x0, symName: _cleanUp, symObjAddr: 0xB30, symBinAddr: 0x100004948, symSize: 0x8C }
-  - { offsetInCU: 0xDA4, offset: 0xFD5, size: 0x8, addend: 0x0, symName: _initialize, symObjAddr: 0xBBC, symBinAddr: 0x1000049D4, symSize: 0x2CC }
-  - { offsetInCU: 0x26, offset: 0x1FF0, size: 0x8, addend: 0x0, symName: _initItems, symObjAddr: 0x0, symBinAddr: 0x100004CA0, symSize: 0x1FC }
-  - { offsetInCU: 0x3F, offset: 0x2009, size: 0x8, addend: 0x0, symName: _itemSprite, symObjAddr: 0x6C68, symBinAddr: 0x10000C0C8, symSize: 0x0 }
-  - { offsetInCU: 0x77, offset: 0x2041, size: 0x8, addend: 0x0, symName: _npcText, symBinAddr: 0x10000C088, symSize: 0x0 }
-  - { offsetInCU: 0x91, offset: 0x205B, size: 0x8, addend: 0x0, symName: _npcArr, symBinAddr: 0x10000C080, symSize: 0x0 }
-  - { offsetInCU: 0x1C4, offset: 0x218E, size: 0x8, addend: 0x0, symName: _numNPCs, symBinAddr: 0x10000C090, symSize: 0x0 }
-  - { offsetInCU: 0x85B, offset: 0x2825, size: 0x8, addend: 0x0, symName: _initItems, symObjAddr: 0x0, symBinAddr: 0x100004CA0, symSize: 0x1FC }
-  - { offsetInCU: 0x8E6, offset: 0x28B0, size: 0x8, addend: 0x0, symName: _renderItemScreen, symObjAddr: 0x1FC, symBinAddr: 0x100004E9C, symSize: 0x2C }
-  - { offsetInCU: 0x8FB, offset: 0x28C5, size: 0x8, addend: 0x0, symName: _updateItemScreen, symObjAddr: 0x228, symBinAddr: 0x100004EC8, symSize: 0x124 }
-  - { offsetInCU: 0x26, offset: 0x3DC6, size: 0x8, addend: 0x0, symName: _loadLevel, symObjAddr: 0x0, symBinAddr: 0x100004FEC, symSize: 0x324 }
-  - { offsetInCU: 0x4D, offset: 0x3DED, size: 0x8, addend: 0x0, symName: _path, symBinAddr: 0x10000C0D0, symSize: 0x0 }
-  - { offsetInCU: 0x63, offset: 0x3E03, size: 0x8, addend: 0x0, symName: _loadLevel, symObjAddr: 0x0, symBinAddr: 0x100004FEC, symSize: 0x324 }
-  - { offsetInCU: 0xBF, offset: 0x3E5F, size: 0x8, addend: 0x0, symName: _unloadLevel, symObjAddr: 0x324, symBinAddr: 0x100005310, symSize: 0x30 }
-  - { offsetInCU: 0xE3, offset: 0x3E83, size: 0x8, addend: 0x0, symName: _getTile, symObjAddr: 0x354, symBinAddr: 0x100005340, symSize: 0xB0 }
-  - { offsetInCU: 0x127, offset: 0x3EC7, size: 0x8, addend: 0x0, symName: _tileHasCollision, symObjAddr: 0x404, symBinAddr: 0x1000053F0, symSize: 0x18 }
-  - { offsetInCU: 0x14F, offset: 0x3EEF, size: 0x8, addend: 0x0, symName: _tileGetObject, symObjAddr: 0x41C, symBinAddr: 0x100005408, symSize: 0x1C }
-  - { offsetInCU: 0x177, offset: 0x3F17, size: 0x8, addend: 0x0, symName: _tileGetTeleporter, symObjAddr: 0x438, symBinAddr: 0x100005424, symSize: 0x1C }
-  - { offsetInCU: 0x19F, offset: 0x3F3F, size: 0x8, addend: 0x0, symName: _getPlayerTileX, symObjAddr: 0x454, symBinAddr: 0x100005440, symSize: 0x20 }
-  - { offsetInCU: 0x1C7, offset: 0x3F67, size: 0x8, addend: 0x0, symName: _getPlayerTileY, symObjAddr: 0x474, symBinAddr: 0x100005460, symSize: 0x20 }
-  - { offsetInCU: 0x1EF, offset: 0x3F8F, size: 0x8, addend: 0x0, symName: _changePlayerPosition, symObjAddr: 0x494, symBinAddr: 0x100005480, symSize: 0x48 }
-  - { offsetInCU: 0x22F, offset: 0x3FCF, size: 0x8, addend: 0x0, symName: _printLevelInformation, symObjAddr: 0x4DC, symBinAddr: 0x1000054C8, symSize: 0x74 }
-  - { offsetInCU: 0x26, offset: 0x428E, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x10000553C, symSize: 0xE4 }
-  - { offsetInCU: 0x33, offset: 0x429B, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x10000553C, symSize: 0xE4 }
-  - { offsetInCU: 0x26, offset: 0x42E1, size: 0x8, addend: 0x0, symName: _updateTalk, symObjAddr: 0x0, symBinAddr: 0x100005620, symSize: 0x1DC }
-  - { offsetInCU: 0x4D, offset: 0x4308, size: 0x8, addend: 0x0, symName: _updateQuest, symObjAddr: 0x90C, symBinAddr: 0x100005F2C, symSize: 0x5BC }
-  - { offsetInCU: 0x72, offset: 0x432D, size: 0x8, addend: 0x0, symName: _updateQuest.loaded, symObjAddr: 0x8660, symBinAddr: 0x10000C150, symSize: 0x0 }
-  - { offsetInCU: 0x87, offset: 0x4342, size: 0x8, addend: 0x0, symName: _updateQuest.questLines, symObjAddr: 0x8668, symBinAddr: 0x10000C158, symSize: 0x0 }
-  - { offsetInCU: 0x9C, offset: 0x4357, size: 0x8, addend: 0x0, symName: _updateQuest.numsLines, symObjAddr: 0x8670, symBinAddr: 0x10000C160, symSize: 0x0 }
-  - { offsetInCU: 0xB1, offset: 0x436C, size: 0x8, addend: 0x0, symName: _updateQuest.current, symObjAddr: 0x8678, symBinAddr: 0x10000C168, symSize: 0x0 }
-  - { offsetInCU: 0xC6, offset: 0x4381, size: 0x8, addend: 0x0, symName: _updateQuest.beforeOrAfter, symObjAddr: 0x867C, symBinAddr: 0x10000C16C, symSize: 0x0 }
-  - { offsetInCU: 0x1DD, offset: 0x4498, size: 0x8, addend: 0x0, symName: _npcText, symBinAddr: 0x10000C088, symSize: 0x0 }
-  - { offsetInCU: 0x1F2, offset: 0x44AD, size: 0x8, addend: 0x0, symName: _npcArr, symBinAddr: 0x10000C080, symSize: 0x0 }
-  - { offsetInCU: 0x31D, offset: 0x45D8, size: 0x8, addend: 0x0, symName: _numNPCs, symBinAddr: 0x10000C090, symSize: 0x0 }
-  - { offsetInCU: 0x9B5, offset: 0x4C70, size: 0x8, addend: 0x0, symName: _updateTalk, symObjAddr: 0x0, symBinAddr: 0x100005620, symSize: 0x1DC }
-  - { offsetInCU: 0x9F9, offset: 0x4CB4, size: 0x8, addend: 0x0, symName: _renderTalk, symObjAddr: 0x1DC, symBinAddr: 0x1000057FC, symSize: 0x48 }
-  - { offsetInCU: 0xA0E, offset: 0x4CC9, size: 0x8, addend: 0x0, symName: _loadNPCText, symObjAddr: 0x224, symBinAddr: 0x100005844, symSize: 0x250 }
-  - { offsetInCU: 0xA7A, offset: 0x4D35, size: 0x8, addend: 0x0, symName: _initNPCs, symObjAddr: 0x474, symBinAddr: 0x100005A94, symSize: 0x498 }
-  - { offsetInCU: 0xB1D, offset: 0x4DD8, size: 0x8, addend: 0x0, symName: _cleanNPC, symObjAddr: 0xEC8, symBinAddr: 0x1000064E8, symSize: 0xE8 }
-  - { offsetInCU: 0xB5D, offset: 0x4E18, size: 0x8, addend: 0x0, symName: _cleanNPCs, symObjAddr: 0xFB0, symBinAddr: 0x1000065D0, symSize: 0xAC }
-  - { offsetInCU: 0x26, offset: 0x633D, size: 0x8, addend: 0x0, symName: _printPlayerPosition, symObjAddr: 0x0, symBinAddr: 0x10000667C, symSize: 0x4C }
-  - { offsetInCU: 0x41, offset: 0x6358, size: 0x8, addend: 0x0, symName: _movePlayer, symObjAddr: 0x4C, symBinAddr: 0x1000066C8, symSize: 0x554 }
-  - { offsetInCU: 0x62, offset: 0x6379, size: 0x8, addend: 0x0, symName: _movePlayer.frameCounter, symObjAddr: 0x2508, symBinAddr: 0x10000C170, symSize: 0x0 }
-  - { offsetInCU: 0x77, offset: 0x638E, size: 0x8, addend: 0x0, symName: _movePlayer.innerAnimation, symObjAddr: 0x250C, symBinAddr: 0x10000C174, symSize: 0x0 }
-  - { offsetInCU: 0x8C, offset: 0x63A3, size: 0x8, addend: 0x0, symName: _movePlayer.outerAnimation, symObjAddr: 0x2510, symBinAddr: 0x10000C178, symSize: 0x0 }
-  - { offsetInCU: 0xC5, offset: 0x63DC, size: 0x8, addend: 0x0, symName: _printPlayerPosition, symObjAddr: 0x0, symBinAddr: 0x10000667C, symSize: 0x4C }
-  - { offsetInCU: 0xE9, offset: 0x6400, size: 0x8, addend: 0x0, symName: _getPlayerTile, symObjAddr: 0x5A0, symBinAddr: 0x100006C1C, symSize: 0x54 }
-  - { offsetInCU: 0x11F, offset: 0x6436, size: 0x8, addend: 0x0, symName: _movePlayerEditor, symObjAddr: 0x5F4, symBinAddr: 0x100006C70, symSize: 0x150 }
-  - { offsetInCU: 0x143, offset: 0x645A, size: 0x8, addend: 0x0, symName: _initPlayer, symObjAddr: 0x744, symBinAddr: 0x100006DC0, symSize: 0x33C }
-  - { offsetInCU: 0x19F, offset: 0x64B6, size: 0x8, addend: 0x0, symName: _cleanPlayer, symObjAddr: 0xA80, symBinAddr: 0x1000070FC, symSize: 0x6C }
-  - { offsetInCU: 0x26, offset: 0x693D, size: 0x8, addend: 0x0, symName: _initTiles, symObjAddr: 0x0, symBinAddr: 0x100007168, symSize: 0x3C4 }
-  - { offsetInCU: 0x4D, offset: 0x6964, size: 0x8, addend: 0x0, symName: _numTiles, symBinAddr: 0x10000C108, symSize: 0x0 }
-  - { offsetInCU: 0x69, offset: 0x6980, size: 0x8, addend: 0x0, symName: _nameLen, symBinAddr: 0x10000C104, symSize: 0x0 }
-  - { offsetInCU: 0x72, offset: 0x6989, size: 0x8, addend: 0x0, symName: _initTiles, symObjAddr: 0x0, symBinAddr: 0x100007168, symSize: 0x3C4 }
-  - { offsetInCU: 0x132, offset: 0x6A49, size: 0x8, addend: 0x0, symName: _cleanTiles, symObjAddr: 0x3C4, symBinAddr: 0x10000752C, symSize: 0x9C }
-  - { offsetInCU: 0x172, offset: 0x6A89, size: 0x8, addend: 0x0, symName: _renderTile, symObjAddr: 0x460, symBinAddr: 0x1000075C8, symSize: 0x38 }
-  - { offsetInCU: 0x26, offset: 0x706C, size: 0x8, addend: 0x0, symName: _initUIWidgets, symObjAddr: 0x0, symBinAddr: 0x100007600, symSize: 0x80 }
-  - { offsetInCU: 0x3F, offset: 0x7085, size: 0x8, addend: 0x0, symName: _textTure, symObjAddr: 0x1380, symBinAddr: 0x10000C110, symSize: 0x0 }
-  - { offsetInCU: 0x69, offset: 0x70AF, size: 0x8, addend: 0x0, symName: _textColor, symObjAddr: 0x32C, symBinAddr: 0x10000C014, symSize: 0x0 }
-  - { offsetInCU: 0xF3, offset: 0x7139, size: 0x8, addend: 0x0, symName: _backgroundRect, symBinAddr: 0x10000C118, symSize: 0x0 }
-  - { offsetInCU: 0x153, offset: 0x7199, size: 0x8, addend: 0x0, symName: _textRect, symBinAddr: 0x10000C130, symSize: 0x0 }
-  - { offsetInCU: 0x168, offset: 0x71AE, size: 0x8, addend: 0x0, symName: _textFont, symBinAddr: 0x10000C128, symSize: 0x0 }
-  - { offsetInCU: 0x192, offset: 0x71D8, size: 0x8, addend: 0x0, symName: _textSurface, symBinAddr: 0x10000C140, symSize: 0x0 }
-  - { offsetInCU: 0x3EE, offset: 0x7434, size: 0x8, addend: 0x0, symName: _initUIWidgets, symObjAddr: 0x0, symBinAddr: 0x100007600, symSize: 0x80 }
-  - { offsetInCU: 0x403, offset: 0x7449, size: 0x8, addend: 0x0, symName: _createTextTure, symObjAddr: 0x80, symBinAddr: 0x100007680, symSize: 0x130 }
-  - { offsetInCU: 0x435, offset: 0x747B, size: 0x8, addend: 0x0, symName: _renderTextBox, symObjAddr: 0x1B0, symBinAddr: 0x1000077B0, symSize: 0x88 }
-  - { offsetInCU: 0x459, offset: 0x749F, size: 0x8, addend: 0x0, symName: _renderItemBox, symObjAddr: 0x238, symBinAddr: 0x100007838, symSize: 0xAC }
-  - { offsetInCU: 0x4A7, offset: 0x74ED, size: 0x8, addend: 0x0, symName: _cleanUIWidgets, symObjAddr: 0x2E4, symBinAddr: 0x1000078E4, symSize: 0x48 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _initFrames, symObjAddr: 0x0, symBinAddr: 0x1000023F8, symSize: 0x1B4 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _animateWater, symObjAddr: 0x1B4, symBinAddr: 0x1000025AC, symSize: 0x98 }
+  - { offsetInCU: 0x62, offset: 0x62, size: 0x8, addend: 0x0, symName: _animateWater.animationFrame, symObjAddr: 0x1360, symBinAddr: 0x10000C028, symSize: 0x0 }
+  - { offsetInCU: 0x77, offset: 0x77, size: 0x8, addend: 0x0, symName: _animateWater.whichFrame, symObjAddr: 0x1364, symBinAddr: 0x10000C02C, symSize: 0x0 }
+  - { offsetInCU: 0x94, offset: 0x94, size: 0x8, addend: 0x0, symName: _waterAnimation, symBinAddr: 0x10000C0C0, symSize: 0x0 }
+  - { offsetInCU: 0xC3, offset: 0xC3, size: 0x8, addend: 0x0, symName: _sandWaterAnimation, symBinAddr: 0x10000C0B0, symSize: 0x0 }
+  - { offsetInCU: 0xD8, offset: 0xD8, size: 0x8, addend: 0x0, symName: _water0storage, symBinAddr: 0x10000C0B8, symSize: 0x0 }
+  - { offsetInCU: 0xED, offset: 0xED, size: 0x8, addend: 0x0, symName: _sandWater0storage, symBinAddr: 0x10000C0A8, symSize: 0x0 }
+  - { offsetInCU: 0xF6, offset: 0xF6, size: 0x8, addend: 0x0, symName: _initFrames, symObjAddr: 0x0, symBinAddr: 0x1000023F8, symSize: 0x1B4 }
+  - { offsetInCU: 0x160, offset: 0x160, size: 0x8, addend: 0x0, symName: _cleanFrames, symObjAddr: 0x24C, symBinAddr: 0x100002644, symSize: 0xDC }
+  - { offsetInCU: 0x26, offset: 0x4E3, size: 0x8, addend: 0x0, symName: _initCamera, symObjAddr: 0x0, symBinAddr: 0x100002720, symSize: 0x30 }
+  - { offsetInCU: 0x33, offset: 0x4F0, size: 0x8, addend: 0x0, symName: _initCamera, symObjAddr: 0x0, symBinAddr: 0x100002720, symSize: 0x30 }
+  - { offsetInCU: 0x73, offset: 0x530, size: 0x8, addend: 0x0, symName: _setCameraPosition, symObjAddr: 0x30, symBinAddr: 0x100002750, symSize: 0x30 }
+  - { offsetInCU: 0xB3, offset: 0x570, size: 0x8, addend: 0x0, symName: _calculateCameraPosition, symObjAddr: 0x60, symBinAddr: 0x100002780, symSize: 0x118 }
+  - { offsetInCU: 0x11D, offset: 0x5DA, size: 0x8, addend: 0x0, symName: _calculateCameraPositionEditor, symObjAddr: 0x178, symBinAddr: 0x100002898, symSize: 0x34 }
+  - { offsetInCU: 0x26, offset: 0x714, size: 0x8, addend: 0x0, symName: _delay, symObjAddr: 0x0, symBinAddr: 0x1000028CC, symSize: 0x60 }
+  - { offsetInCU: 0x3F, offset: 0x72D, size: 0x8, addend: 0x0, symName: _player, symObjAddr: 0x8818, symBinAddr: 0x10000C0C8, symSize: 0x0 }
+  - { offsetInCU: 0x109, offset: 0x7F7, size: 0x8, addend: 0x0, symName: _level, symObjAddr: 0x8820, symBinAddr: 0x10000C0D0, symSize: 0x0 }
+  - { offsetInCU: 0x193, offset: 0x881, size: 0x8, addend: 0x0, symName: _overworld, symObjAddr: 0x8828, symBinAddr: 0x10000C0D8, symSize: 0x0 }
+  - { offsetInCU: 0x1A8, offset: 0x896, size: 0x8, addend: 0x0, symName: _sublevel, symObjAddr: 0x8830, symBinAddr: 0x10000C0E0, symSize: 0x0 }
+  - { offsetInCU: 0x1BD, offset: 0x8AB, size: 0x8, addend: 0x0, symName: _tiles, symObjAddr: 0x8838, symBinAddr: 0x10000C0E8, symSize: 0x0 }
+  - { offsetInCU: 0x209, offset: 0x8F7, size: 0x8, addend: 0x0, symName: _window, symObjAddr: 0x8840, symBinAddr: 0x10000C0F0, symSize: 0x0 }
+  - { offsetInCU: 0x233, offset: 0x921, size: 0x8, addend: 0x0, symName: _renderer, symObjAddr: 0x8848, symBinAddr: 0x10000C0F8, symSize: 0x0 }
+  - { offsetInCU: 0x25D, offset: 0x94B, size: 0x8, addend: 0x0, symName: _running, symObjAddr: 0x8850, symBinAddr: 0x10000C100, symSize: 0x0 }
+  - { offsetInCU: 0x272, offset: 0x960, size: 0x8, addend: 0x0, symName: _time_last_frame, symObjAddr: 0x8854, symBinAddr: 0x10000C104, symSize: 0x0 }
+  - { offsetInCU: 0x2A4, offset: 0x992, size: 0x8, addend: 0x0, symName: _updatePTR, symObjAddr: 0x8858, symBinAddr: 0x10000C108, symSize: 0x0 }
+  - { offsetInCU: 0x2AE, offset: 0x99C, size: 0x8, addend: 0x0, symName: _levelBlendEffect, symObjAddr: 0x60, symBinAddr: 0x10000292C, symSize: 0xF4 }
+  - { offsetInCU: 0x2CF, offset: 0x9BD, size: 0x8, addend: 0x0, symName: _levelBlendEffect.fade0, symObjAddr: 0x8860, symBinAddr: 0x10000C030, symSize: 0x0 }
+  - { offsetInCU: 0x2E4, offset: 0x9D2, size: 0x8, addend: 0x0, symName: _levelBlendEffect.fade1, symObjAddr: 0xFEC, symBinAddr: 0x10000C000, symSize: 0x0 }
+  - { offsetInCU: 0x2F9, offset: 0x9E7, size: 0x8, addend: 0x0, symName: _levelBlendEffect.rec, symObjAddr: 0xFF0, symBinAddr: 0x10000C004, symSize: 0x0 }
+  - { offsetInCU: 0x36F, offset: 0xA5D, size: 0x8, addend: 0x0, symName: _npcText, symBinAddr: 0x10000C140, symSize: 0x0 }
+  - { offsetInCU: 0x384, offset: 0xA72, size: 0x8, addend: 0x0, symName: _npcArr, symBinAddr: 0x10000C138, symSize: 0x0 }
+  - { offsetInCU: 0x49F, offset: 0xB8D, size: 0x8, addend: 0x0, symName: _numNPCs, symBinAddr: 0x10000C148, symSize: 0x0 }
+  - { offsetInCU: 0x4B4, offset: 0xBA2, size: 0x8, addend: 0x0, symName: _playerObj, symBinAddr: 0x10000C14C, symSize: 0x0 }
+  - { offsetInCU: 0x4C9, offset: 0xBB7, size: 0x8, addend: 0x0, symName: _playerSprite, symBinAddr: 0x10000C160, symSize: 0x0 }
+  - { offsetInCU: 0x4DE, offset: 0xBCC, size: 0x8, addend: 0x0, symName: _items, symBinAddr: 0x10000C120, symSize: 0x0 }
+  - { offsetInCU: 0x4F8, offset: 0xBE6, size: 0x8, addend: 0x0, symName: _camera, symBinAddr: 0x10000C110, symSize: 0x0 }
+  - { offsetInCU: 0x53A, offset: 0xC28, size: 0x8, addend: 0x0, symName: _screenX, symBinAddr: 0x10000C170, symSize: 0x0 }
+  - { offsetInCU: 0x54F, offset: 0xC3D, size: 0x8, addend: 0x0, symName: _screenY, symBinAddr: 0x10000C174, symSize: 0x0 }
+  - { offsetInCU: 0x564, offset: 0xC52, size: 0x8, addend: 0x0, symName: _levelObj, symBinAddr: 0x10000C128, symSize: 0x0 }
+  - { offsetInCU: 0x579, offset: 0xC67, size: 0x8, addend: 0x0, symName: _clickSound, symBinAddr: 0x10000C118, symSize: 0x0 }
+  - { offsetInCU: 0x5F9, offset: 0xCE7, size: 0x8, addend: 0x0, symName: _update, symBinAddr: 0x10000C178, symSize: 0x0 }
+  - { offsetInCU: 0x61E, offset: 0xD0C, size: 0x8, addend: 0x0, symName: _render, symBinAddr: 0x10000C168, symSize: 0x0 }
+  - { offsetInCU: 0xCAE, offset: 0x139C, size: 0x8, addend: 0x0, symName: _delay, symObjAddr: 0x0, symBinAddr: 0x1000028CC, symSize: 0x60 }
+  - { offsetInCU: 0xCD2, offset: 0x13C0, size: 0x8, addend: 0x0, symName: _renderGame, symObjAddr: 0x154, symBinAddr: 0x100002A20, symSize: 0x254 }
+  - { offsetInCU: 0xD3C, offset: 0x142A, size: 0x8, addend: 0x0, symName: _handleTeleportation, symObjAddr: 0x3A8, symBinAddr: 0x100002C74, symSize: 0x310 }
+  - { offsetInCU: 0xD60, offset: 0x144E, size: 0x8, addend: 0x0, symName: _updateGame, symObjAddr: 0x6C8, symBinAddr: 0x100002F94, symSize: 0x49C }
+  - { offsetInCU: 0xDDD, offset: 0x14CB, size: 0x8, addend: 0x0, symName: _positionOnScreen, symObjAddr: 0xBC0, symBinAddr: 0x10000348C, symSize: 0x5C }
+  - { offsetInCU: 0xE0F, offset: 0x14FD, size: 0x8, addend: 0x0, symName: _cleanUp, symObjAddr: 0xC1C, symBinAddr: 0x1000034E8, symSize: 0xA4 }
+  - { offsetInCU: 0xE24, offset: 0x1512, size: 0x8, addend: 0x0, symName: _initialize, symObjAddr: 0xCC0, symBinAddr: 0x10000358C, symSize: 0x32C }
+  - { offsetInCU: 0x26, offset: 0x2512, size: 0x8, addend: 0x0, symName: _initItems, symObjAddr: 0x0, symBinAddr: 0x1000038B8, symSize: 0x1FC }
+  - { offsetInCU: 0x3F, offset: 0x252B, size: 0x8, addend: 0x0, symName: _itemSprite, symObjAddr: 0x6C68, symBinAddr: 0x10000C180, symSize: 0x0 }
+  - { offsetInCU: 0x77, offset: 0x2563, size: 0x8, addend: 0x0, symName: _npcText, symBinAddr: 0x10000C140, symSize: 0x0 }
+  - { offsetInCU: 0x91, offset: 0x257D, size: 0x8, addend: 0x0, symName: _npcArr, symBinAddr: 0x10000C138, symSize: 0x0 }
+  - { offsetInCU: 0x1C4, offset: 0x26B0, size: 0x8, addend: 0x0, symName: _numNPCs, symBinAddr: 0x10000C148, symSize: 0x0 }
+  - { offsetInCU: 0x85B, offset: 0x2D47, size: 0x8, addend: 0x0, symName: _initItems, symObjAddr: 0x0, symBinAddr: 0x1000038B8, symSize: 0x1FC }
+  - { offsetInCU: 0x8E6, offset: 0x2DD2, size: 0x8, addend: 0x0, symName: _renderItemScreen, symObjAddr: 0x1FC, symBinAddr: 0x100003AB4, symSize: 0x2C }
+  - { offsetInCU: 0x8FB, offset: 0x2DE7, size: 0x8, addend: 0x0, symName: _updateItemScreen, symObjAddr: 0x228, symBinAddr: 0x100003AE0, symSize: 0x124 }
+  - { offsetInCU: 0x26, offset: 0x42E8, size: 0x8, addend: 0x0, symName: _loadLevel, symObjAddr: 0x0, symBinAddr: 0x100003C04, symSize: 0x324 }
+  - { offsetInCU: 0x4D, offset: 0x430F, size: 0x8, addend: 0x0, symName: _path, symBinAddr: 0x10000C188, symSize: 0x0 }
+  - { offsetInCU: 0x63, offset: 0x4325, size: 0x8, addend: 0x0, symName: _loadLevel, symObjAddr: 0x0, symBinAddr: 0x100003C04, symSize: 0x324 }
+  - { offsetInCU: 0xBF, offset: 0x4381, size: 0x8, addend: 0x0, symName: _unloadLevel, symObjAddr: 0x324, symBinAddr: 0x100003F28, symSize: 0x30 }
+  - { offsetInCU: 0xE3, offset: 0x43A5, size: 0x8, addend: 0x0, symName: _getTile, symObjAddr: 0x354, symBinAddr: 0x100003F58, symSize: 0xB0 }
+  - { offsetInCU: 0x127, offset: 0x43E9, size: 0x8, addend: 0x0, symName: _tileHasCollision, symObjAddr: 0x404, symBinAddr: 0x100004008, symSize: 0x18 }
+  - { offsetInCU: 0x14F, offset: 0x4411, size: 0x8, addend: 0x0, symName: _tileGetObject, symObjAddr: 0x41C, symBinAddr: 0x100004020, symSize: 0x1C }
+  - { offsetInCU: 0x177, offset: 0x4439, size: 0x8, addend: 0x0, symName: _tileGetTeleporter, symObjAddr: 0x438, symBinAddr: 0x10000403C, symSize: 0x1C }
+  - { offsetInCU: 0x19F, offset: 0x4461, size: 0x8, addend: 0x0, symName: _getPlayerTileX, symObjAddr: 0x454, symBinAddr: 0x100004058, symSize: 0x20 }
+  - { offsetInCU: 0x1C7, offset: 0x4489, size: 0x8, addend: 0x0, symName: _getPlayerTileY, symObjAddr: 0x474, symBinAddr: 0x100004078, symSize: 0x20 }
+  - { offsetInCU: 0x1EF, offset: 0x44B1, size: 0x8, addend: 0x0, symName: _changePlayerPosition, symObjAddr: 0x494, symBinAddr: 0x100004098, symSize: 0x48 }
+  - { offsetInCU: 0x22F, offset: 0x44F1, size: 0x8, addend: 0x0, symName: _printLevelInformation, symObjAddr: 0x4DC, symBinAddr: 0x1000040E0, symSize: 0x74 }
+  - { offsetInCU: 0x26, offset: 0x47B0, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100004154, symSize: 0xE8 }
+  - { offsetInCU: 0x33, offset: 0x47BD, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100004154, symSize: 0xE8 }
+  - { offsetInCU: 0x26, offset: 0x4803, size: 0x8, addend: 0x0, symName: _updateTalk, symObjAddr: 0x0, symBinAddr: 0x10000423C, symSize: 0x1F4 }
+  - { offsetInCU: 0x4D, offset: 0x482A, size: 0x8, addend: 0x0, symName: _updateQuest, symObjAddr: 0x9A8, symBinAddr: 0x100004BE4, symSize: 0x5D4 }
+  - { offsetInCU: 0x72, offset: 0x484F, size: 0x8, addend: 0x0, symName: _updateQuest.loaded, symObjAddr: 0xA4E0, symBinAddr: 0x10000C038, symSize: 0x0 }
+  - { offsetInCU: 0x87, offset: 0x4864, size: 0x8, addend: 0x0, symName: _updateQuest.questLines, symObjAddr: 0xA4E8, symBinAddr: 0x10000C040, symSize: 0x0 }
+  - { offsetInCU: 0x9D, offset: 0x487A, size: 0x8, addend: 0x0, symName: _updateQuest.numsLines, symObjAddr: 0xA4F0, symBinAddr: 0x10000C048, symSize: 0x0 }
+  - { offsetInCU: 0xB3, offset: 0x4890, size: 0x8, addend: 0x0, symName: _updateQuest.current, symObjAddr: 0xA4F8, symBinAddr: 0x10000C050, symSize: 0x0 }
+  - { offsetInCU: 0xC9, offset: 0x48A6, size: 0x8, addend: 0x0, symName: _updateQuest.beforeOrAfter, symObjAddr: 0xA4FC, symBinAddr: 0x10000C054, symSize: 0x0 }
+  - { offsetInCU: 0x1D9, offset: 0x49B6, size: 0x8, addend: 0x0, symName: _updateQuestB, symObjAddr: 0x158C, symBinAddr: 0x1000057C8, symSize: 0x5AC }
+  - { offsetInCU: 0x200, offset: 0x49DD, size: 0x8, addend: 0x0, symName: _updateQuestB.loaded, symObjAddr: 0xA500, symBinAddr: 0x10000C058, symSize: 0x0 }
+  - { offsetInCU: 0x216, offset: 0x49F3, size: 0x8, addend: 0x0, symName: _updateQuestB.questLines, symObjAddr: 0xA508, symBinAddr: 0x10000C060, symSize: 0x0 }
+  - { offsetInCU: 0x22C, offset: 0x4A09, size: 0x8, addend: 0x0, symName: _updateQuestB.numsLines, symObjAddr: 0xA510, symBinAddr: 0x10000C068, symSize: 0x0 }
+  - { offsetInCU: 0x242, offset: 0x4A1F, size: 0x8, addend: 0x0, symName: _updateQuestB.current, symObjAddr: 0xA518, symBinAddr: 0x10000C070, symSize: 0x0 }
+  - { offsetInCU: 0x258, offset: 0x4A35, size: 0x8, addend: 0x0, symName: _updateQuestB.beforeOrAfter, symObjAddr: 0xA51C, symBinAddr: 0x10000C074, symSize: 0x0 }
+  - { offsetInCU: 0x348, offset: 0x4B25, size: 0x8, addend: 0x0, symName: _updateQuestC, symObjAddr: 0xF7C, symBinAddr: 0x1000051B8, symSize: 0x610 }
+  - { offsetInCU: 0x36F, offset: 0x4B4C, size: 0x8, addend: 0x0, symName: _updateQuestC.loaded, symObjAddr: 0xA520, symBinAddr: 0x10000C078, symSize: 0x0 }
+  - { offsetInCU: 0x385, offset: 0x4B62, size: 0x8, addend: 0x0, symName: _updateQuestC.questLines, symObjAddr: 0xA528, symBinAddr: 0x10000C080, symSize: 0x0 }
+  - { offsetInCU: 0x39B, offset: 0x4B78, size: 0x8, addend: 0x0, symName: _updateQuestC.numsLines, symObjAddr: 0xA530, symBinAddr: 0x10000C088, symSize: 0x0 }
+  - { offsetInCU: 0x3B1, offset: 0x4B8E, size: 0x8, addend: 0x0, symName: _updateQuestC.current, symObjAddr: 0xA538, symBinAddr: 0x10000C090, symSize: 0x0 }
+  - { offsetInCU: 0x3C7, offset: 0x4BA4, size: 0x8, addend: 0x0, symName: _updateQuestC.beforeOrAfter, symObjAddr: 0xA53C, symBinAddr: 0x10000C094, symSize: 0x0 }
+  - { offsetInCU: 0x4C3, offset: 0x4CA0, size: 0x8, addend: 0x0, symName: _npcText, symBinAddr: 0x10000C140, symSize: 0x0 }
+  - { offsetInCU: 0x4D8, offset: 0x4CB5, size: 0x8, addend: 0x0, symName: _npcArr, symBinAddr: 0x10000C138, symSize: 0x0 }
+  - { offsetInCU: 0x603, offset: 0x4DE0, size: 0x8, addend: 0x0, symName: _numNPCs, symBinAddr: 0x10000C148, symSize: 0x0 }
+  - { offsetInCU: 0xC9B, offset: 0x5478, size: 0x8, addend: 0x0, symName: _updateTalk, symObjAddr: 0x0, symBinAddr: 0x10000423C, symSize: 0x1F4 }
+  - { offsetInCU: 0xCDF, offset: 0x54BC, size: 0x8, addend: 0x0, symName: _renderTalk, symObjAddr: 0x1F4, symBinAddr: 0x100004430, symSize: 0x64 }
+  - { offsetInCU: 0xCF4, offset: 0x54D1, size: 0x8, addend: 0x0, symName: _loadNPCText, symObjAddr: 0x258, symBinAddr: 0x100004494, symSize: 0x250 }
+  - { offsetInCU: 0xD60, offset: 0x553D, size: 0x8, addend: 0x0, symName: _initNPCs, symObjAddr: 0x4A8, symBinAddr: 0x1000046E4, symSize: 0x500 }
+  - { offsetInCU: 0xE03, offset: 0x55E0, size: 0x8, addend: 0x0, symName: _initNPCsEditor, symObjAddr: 0x1B38, symBinAddr: 0x100005D74, symSize: 0x3D4 }
+  - { offsetInCU: 0xEA6, offset: 0x5683, size: 0x8, addend: 0x0, symName: _cleanNPC, symObjAddr: 0x1F0C, symBinAddr: 0x100006148, symSize: 0xE8 }
+  - { offsetInCU: 0xEE6, offset: 0x56C3, size: 0x8, addend: 0x0, symName: _switchTiles, symObjAddr: 0x1FF4, symBinAddr: 0x100006230, symSize: 0x64 }
+  - { offsetInCU: 0xF2A, offset: 0x5707, size: 0x8, addend: 0x0, symName: _cleanNPCs, symObjAddr: 0x2058, symBinAddr: 0x100006294, symSize: 0xAC }
+  - { offsetInCU: 0x26, offset: 0x6C3B, size: 0x8, addend: 0x0, symName: _printPlayerPosition, symObjAddr: 0x0, symBinAddr: 0x100006340, symSize: 0x4C }
+  - { offsetInCU: 0x41, offset: 0x6C56, size: 0x8, addend: 0x0, symName: _movePlayer, symObjAddr: 0x4C, symBinAddr: 0x10000638C, symSize: 0x554 }
+  - { offsetInCU: 0x62, offset: 0x6C77, size: 0x8, addend: 0x0, symName: _movePlayer.frameCounter, symObjAddr: 0x24FC, symBinAddr: 0x10000C098, symSize: 0x0 }
+  - { offsetInCU: 0x77, offset: 0x6C8C, size: 0x8, addend: 0x0, symName: _movePlayer.innerAnimation, symObjAddr: 0x2500, symBinAddr: 0x10000C09C, symSize: 0x0 }
+  - { offsetInCU: 0x8C, offset: 0x6CA1, size: 0x8, addend: 0x0, symName: _movePlayer.outerAnimation, symObjAddr: 0x2504, symBinAddr: 0x10000C0A0, symSize: 0x0 }
+  - { offsetInCU: 0xC5, offset: 0x6CDA, size: 0x8, addend: 0x0, symName: _printPlayerPosition, symObjAddr: 0x0, symBinAddr: 0x100006340, symSize: 0x4C }
+  - { offsetInCU: 0xE9, offset: 0x6CFE, size: 0x8, addend: 0x0, symName: _getPlayerTile, symObjAddr: 0x5A0, symBinAddr: 0x1000068E0, symSize: 0x54 }
+  - { offsetInCU: 0x11F, offset: 0x6D34, size: 0x8, addend: 0x0, symName: _movePlayerEditor, symObjAddr: 0x5F4, symBinAddr: 0x100006934, symSize: 0x150 }
+  - { offsetInCU: 0x143, offset: 0x6D58, size: 0x8, addend: 0x0, symName: _initPlayer, symObjAddr: 0x744, symBinAddr: 0x100006A84, symSize: 0x330 }
+  - { offsetInCU: 0x19F, offset: 0x6DB4, size: 0x8, addend: 0x0, symName: _cleanPlayer, symObjAddr: 0xA74, symBinAddr: 0x100006DB4, symSize: 0x6C }
+  - { offsetInCU: 0x26, offset: 0x723B, size: 0x8, addend: 0x0, symName: _initTiles, symObjAddr: 0x0, symBinAddr: 0x100006E20, symSize: 0x3C4 }
+  - { offsetInCU: 0x4D, offset: 0x7262, size: 0x8, addend: 0x0, symName: _numTiles, symBinAddr: 0x10000C1C0, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0x727E, size: 0x8, addend: 0x0, symName: _nameLen, symBinAddr: 0x10000C1BC, symSize: 0x0 }
+  - { offsetInCU: 0x72, offset: 0x7287, size: 0x8, addend: 0x0, symName: _initTiles, symObjAddr: 0x0, symBinAddr: 0x100006E20, symSize: 0x3C4 }
+  - { offsetInCU: 0x132, offset: 0x7347, size: 0x8, addend: 0x0, symName: _cleanTiles, symObjAddr: 0x3C4, symBinAddr: 0x1000071E4, symSize: 0x9C }
+  - { offsetInCU: 0x172, offset: 0x7387, size: 0x8, addend: 0x0, symName: _renderTile, symObjAddr: 0x460, symBinAddr: 0x100007280, symSize: 0x38 }
+  - { offsetInCU: 0x26, offset: 0x796A, size: 0x8, addend: 0x0, symName: _initUIWidgets, symObjAddr: 0x0, symBinAddr: 0x1000072B8, symSize: 0xA0 }
+  - { offsetInCU: 0x3F, offset: 0x7983, size: 0x8, addend: 0x0, symName: _textTure, symObjAddr: 0x18C8, symBinAddr: 0x10000C1C8, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0x79AD, size: 0x8, addend: 0x0, symName: _nameTexture, symObjAddr: 0x18D0, symBinAddr: 0x10000C1D0, symSize: 0x0 }
+  - { offsetInCU: 0x7E, offset: 0x79C2, size: 0x8, addend: 0x0, symName: _textColor, symObjAddr: 0x540, symBinAddr: 0x10000C018, symSize: 0x0 }
+  - { offsetInCU: 0x108, offset: 0x7A4C, size: 0x8, addend: 0x0, symName: _name, symObjAddr: 0x548, symBinAddr: 0x10000C020, symSize: 0x0 }
+  - { offsetInCU: 0x122, offset: 0x7A66, size: 0x8, addend: 0x0, symName: _backgroundRect, symBinAddr: 0x10000C1D8, symSize: 0x0 }
+  - { offsetInCU: 0x182, offset: 0x7AC6, size: 0x8, addend: 0x0, symName: _backgroundRectName, symBinAddr: 0x10000C1E8, symSize: 0x0 }
+  - { offsetInCU: 0x197, offset: 0x7ADB, size: 0x8, addend: 0x0, symName: _textRect, symBinAddr: 0x10000C220, symSize: 0x0 }
+  - { offsetInCU: 0x1AC, offset: 0x7AF0, size: 0x8, addend: 0x0, symName: _nameRect, symBinAddr: 0x10000C200, symSize: 0x0 }
+  - { offsetInCU: 0x1C1, offset: 0x7B05, size: 0x8, addend: 0x0, symName: _textFont, symBinAddr: 0x10000C218, symSize: 0x0 }
+  - { offsetInCU: 0x1EB, offset: 0x7B2F, size: 0x8, addend: 0x0, symName: _nameFont, symBinAddr: 0x10000C1F8, symSize: 0x0 }
+  - { offsetInCU: 0x200, offset: 0x7B44, size: 0x8, addend: 0x0, symName: _textSurface, symBinAddr: 0x10000C230, symSize: 0x0 }
+  - { offsetInCU: 0x468, offset: 0x7DAC, size: 0x8, addend: 0x0, symName: _nameSurface, symBinAddr: 0x10000C210, symSize: 0x0 }
+  - { offsetInCU: 0x471, offset: 0x7DB5, size: 0x8, addend: 0x0, symName: _initUIWidgets, symObjAddr: 0x0, symBinAddr: 0x1000072B8, symSize: 0xA0 }
+  - { offsetInCU: 0x486, offset: 0x7DCA, size: 0x8, addend: 0x0, symName: _createTextTure, symObjAddr: 0xA0, symBinAddr: 0x100007358, symSize: 0x130 }
+  - { offsetInCU: 0x4B8, offset: 0x7DFC, size: 0x8, addend: 0x0, symName: _createNameTexture, symObjAddr: 0x1D0, symBinAddr: 0x100007488, symSize: 0x168 }
+  - { offsetInCU: 0x4DC, offset: 0x7E20, size: 0x8, addend: 0x0, symName: _renderNameBox, symObjAddr: 0x338, symBinAddr: 0x1000075F0, symSize: 0x88 }
+  - { offsetInCU: 0x500, offset: 0x7E44, size: 0x8, addend: 0x0, symName: _renderTextBox, symObjAddr: 0x3C0, symBinAddr: 0x100007678, symSize: 0x88 }
+  - { offsetInCU: 0x524, offset: 0x7E68, size: 0x8, addend: 0x0, symName: _renderItemBox, symObjAddr: 0x448, symBinAddr: 0x100007700, symSize: 0xAC }
+  - { offsetInCU: 0x572, offset: 0x7EB6, size: 0x8, addend: 0x0, symName: _cleanUIWidgets, symObjAddr: 0x4F4, symBinAddr: 0x1000077AC, symSize: 0x48 }
 ...

@@ -6,6 +6,7 @@
 #include "header/uiwidgets.h"
 #include "header/game.h"
 #include "header/items.h"
+#include "header/sound.h"
 
 typedef struct {
     char name[20];
@@ -30,6 +31,11 @@ int updateQuestB(void* ptr);
 int updateQuestC(void * ptr);
 
 int updateTalk(void *ptr) {
+    static int playSound = 1;
+    if (playSound) { //play the sound only once when the player starts talking to the npc
+        playClickSound();
+        playSound = 0;
+    }
     NPC *npc = (NPC *) ptr;
     SDL_Event event;
     npcText = npc->lines[npc->countOuter][npc->countInner];
@@ -49,7 +55,9 @@ int updateTalk(void *ptr) {
                             update = updateGame;
                             render = renderGame;
                             npcText = "";
+                            playSound = 1;
                         }
+                        else playClickSound();
                         break;
 
                 }
@@ -60,6 +68,15 @@ int updateTalk(void *ptr) {
 }
 
 void renderTalk() {
+    renderGame();
+    createTextTure(renderer, npcText);
+    renderTextBox(renderer);
+    createNameTexture(renderer);
+    renderNameBox(renderer);
+}
+
+// For the Labyrinth and Toilet Quest
+void renderTalkNoName() {
     renderGame();
     createTextTure(renderer, npcText);
     renderTextBox(renderer);
@@ -163,17 +180,24 @@ void initNPCs(SDL_Renderer *r) {
     npcArr[1].hasThis = items[3];
     npcArr[1].needsThis = items[6];
 
-    //Hund und Kemal andere Quest
+    //Hund
     npcArr[4].updateInteraction = updateTalk;
+
+    //Kemal
     npcArr[7].updateInteraction = updateQuestC;
+
+    //Bushaltestelle
+    npcArr[10].updateInteraction = updateTalk;
 
     //Schatz Quest
     npcArr[8].hasThis = items[7];
     npcArr[8].updateInteraction = updateQuestB;
+    npcArr[8].renderInteraction = renderTalkNoName;
 
     //Dixi-Klo Quest
     npcArr[9].hasThis = items[0];
     npcArr[9].updateInteraction = updateQuestB;
+    npcArr[9].renderInteraction = renderTalkNoName;
 
 
     printf("Loaded %d NPCs in.\n", numNPCs);
@@ -274,6 +298,7 @@ int updateQuest(void *ptr) {
         }
         loaded = 1;
         npcText = questLines[beforeOrAfter][current];
+        playClickSound();
     }
 
     SDL_Event event;
@@ -295,6 +320,7 @@ int updateQuest(void *ptr) {
                             current = 0;
                             beforeOrAfter = 1;
                             npcText = questLines[beforeOrAfter][current];
+                            playClickSound();
                             } else {
                                 current = 0;
                                 update = updateGame;
@@ -308,12 +334,16 @@ int updateQuest(void *ptr) {
                             update = updateItemScreen;
                             render = renderItemScreen;
                             npc->updateInteraction = updateTalk;
+                            playGetItemSound();
                             goto RESETQUEST;
                             break;
                         default:
                             break;
                         }
-                    } else npcText = questLines[beforeOrAfter][current];
+                    } else {
+                        npcText = questLines[beforeOrAfter][current];
+                        playClickSound();
+                    }
                 }
         }
     }
@@ -335,10 +365,11 @@ int updateQuest(void *ptr) {
     return 1;
 }
 
-void changePodestTile() {
-    SDL_Texture* temp = tiles->textures[106];
-    tiles->textures[106] = tiles->textures[107];
-    tiles->textures[107] = temp;
+//Swicth Tiles by number
+void switchTiles(int numA, int numB) {
+    SDL_Texture* temp = tiles->textures[numA];
+    tiles->textures[numA] = tiles->textures[numB];
+    tiles->textures[numB] = temp;
 }
 
 //Labyrinth / Klo Quest
@@ -372,6 +403,7 @@ int updateQuestB(void* ptr) {
         }
         loaded = 1;
         npcText = questLines[beforeOrAfter][current];
+        playClickSound();
     }
 
     SDL_Event event;
@@ -392,6 +424,7 @@ int updateQuestB(void* ptr) {
                             current = 0;
                             beforeOrAfter = 1;
                             npcText = questLines[beforeOrAfter][current];
+                            playClickSound();
                             break;
                         case 1:
                             player->items[npc->hasThis->id] = 1; //get Treasure
@@ -400,13 +433,17 @@ int updateQuestB(void* ptr) {
                             render = renderItemScreen;
                             npc->updateInteraction = updateGame;
                             npc->renderInteraction = renderGame;
-                            if (strcmp(npc->name, "LabyrinthSchatz") == 0) changePodestTile();
+                            if (strcmp(npc->name, "LabyrinthSchatz") == 0) switchTiles(106, 107);
+                            playGetItemSound();
                             goto RESETQUEST;
                             break;
                         default:
                             break;
                         }
-                    } else npcText = questLines[beforeOrAfter][current];
+                    } else {
+                        npcText = questLines[beforeOrAfter][current];
+                        playClickSound();
+                    }
                 }
         }
     }
@@ -459,6 +496,7 @@ int updateQuestC(void *ptr) {
         }
         loaded = 1;
         npcText = questLines[beforeOrAfter][current];
+        playClickSound();
     }
 
     SDL_Event event;
@@ -480,6 +518,7 @@ int updateQuestC(void *ptr) {
                             current = 0;
                             beforeOrAfter = 1;
                             npcText = questLines[beforeOrAfter][current];
+                            playClickSound();
                             } else {
                                 current = 0;
                                 update = updateGame;
@@ -489,16 +528,25 @@ int updateQuestC(void *ptr) {
                             break;
                         case 1:
                             player->items[npc->hasThis->id] = 1; //get item from NPC
+                            levelBlendEffect();
+                            switchTiles(138, 140);
+                            switchTiles(139, 141);
+                            switchTiles(143, 144);
+                            levelBlendEffect();
                             itemSprite = npc->hasThis->sprite;
                             update = updateItemScreen;
                             render = renderItemScreen;
                             npc->updateInteraction = updateTalk;
+                            playGetItemSound();
                             goto RESETQUEST;
                             break;
                         default:
                             break;
                         }
-                    } else npcText = questLines[beforeOrAfter][current];
+                    } else {
+                        npcText = questLines[beforeOrAfter][current];
+                        playClickSound();
+                    }
                 }
         }
     }

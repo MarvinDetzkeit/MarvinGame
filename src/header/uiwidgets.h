@@ -15,6 +15,7 @@ extern TTF_Font *textFont;
 extern SDL_Surface *textSurface;
 extern SDL_Texture *textTure;
 extern SDL_Color textColor;
+extern char* name;
 
 // Structs
 typedef struct {
@@ -25,6 +26,8 @@ typedef struct {
 void initUIWidgets();
 void createTextTure(SDL_Renderer *r, char *text);
 void renderTextBox(SDL_Renderer *r);
+void createNameTexture(SDL_Renderer *r);
+void renderNameBox(SDL_Renderer *r);
 void renderItemBox(SDL_Renderer *r, SDL_Texture *itemSprite);
 void cleanUIWidgets();
 

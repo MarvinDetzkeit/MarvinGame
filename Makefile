@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-O2 -lSDL2 -lSDL2_ttf -lSDL2_image
+CFLAGS= -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 DEBUGFLAGS=-Wall -g
 SRC_DIR=./src
 GAME_FILES=$(filter-out $(SRC_DIR)/editor.c, $(wildcard $(SRC_DIR)/*.c))
@@ -10,10 +10,10 @@ EDITOR_FILES=$(filter-out $(SRC_DIR)/main.c $(SRC_DIR)/game.c, $(wildcard $(SRC_
 all: build editor
 
 build:
-	$(CC) $(CFLAGS) -o MarvinGame $(GAME_FILES)
+	$(CC) -o2 $(CFLAGS) -o MarvinGame $(GAME_FILES)
 
 editor:
-	$(CC) $(CFLAGS) -o MarvinEditor $(EDITOR_FILES)
+	$(CC) -o2 $(CFLAGS) -o MarvinEditor $(EDITOR_FILES)
 
 run:
 	./MarvinGame
@@ -26,15 +26,15 @@ clean:
 		rm "MarvinEditor"; \
 	fi
 
-fresh: clean build run
+fresh: build run
 
 debug: clean
-	$(CC) $(DEBUGFLAGS) -o MarvinGame $(GAME_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
+	$(CC) $(DEBUGFLAGS) -o MarvinGame $(GAME_FILES) $(CFLAGS)
 	lldb ./MarvinGame
 
-feditor: clean editor
+feditor: editor
 	./MarvinEditor
 
 deditor: clean
-	$(CC) $(DEBUGFLAGS) -o MarvinEditor $(EDITOR_FILES) -lSDL2 -lSDL2_ttf -lSDL2_image
+	$(CC) $(DEBUGFLAGS) -o MarvinEditor $(EDITOR_FILES) $(CFLAGS)
 	lldb ./MarvinEditor

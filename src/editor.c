@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <string.h>
 #include <unistd.h>
 #include "header/constants.h"
@@ -15,8 +16,12 @@
 
 //Inits to make it compile
 Item** items;
+Mix_Chunk *clickSound;
 int (*update)();
 void (*render)();
+void levelBlendEffect(void) {
+    return;
+}
 void renderGame() {
     return;
 }

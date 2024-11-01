@@ -12,6 +12,8 @@
 #include "header/uiwidgets.h"
 #include "header/objects.h"
 #include "header/items.h"
+#include "header/animation.h"
+#include "header/sound.h"
 
 //Player variables
 Player *player = NULL;
@@ -56,7 +58,7 @@ void delay() {
 }
 
 //Render blend effect for level transition
-void levelBlendEffct() {
+void levelBlendEffect() {
     static int fade0 = 0;
     static int fade1 = 1;
     static SDL_Rect rec = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
@@ -75,7 +77,8 @@ void levelBlendEffct() {
 void handleTeleportation() {
     int teleporter = getPlayerTile(player, level);
     if (!teleporter) return;
-    levelBlendEffct();
+    playSwitchLevelSound();
+    levelBlendEffect();
     switch (teleporter)
     {
     //Return back to overworld
@@ -118,7 +121,7 @@ void handleTeleportation() {
     }
 
     calculateCameraPositionEditor(camera, player);
-    levelBlendEffct();
+    levelBlendEffect();
 }
 
 int updateGame(void *ptr) {
@@ -168,6 +171,7 @@ int updateGame(void *ptr) {
                             }
                         }
                         if (npc) {
+                            name = npcArr[npc].name;
                             update = npcArr[npc].updateInteraction;
                             render = npcArr[npc].renderInteraction;
                             updatePTR = npcArr + npc;
@@ -176,7 +180,6 @@ int updateGame(void *ptr) {
                             player->movLeft = 0;
                             player->movRight = 0;
                         }
-                        printPlayerPosition(player);
                         break;
                         case SDLK_i:
                             itemSprite = items[1]->sprite;
@@ -235,8 +238,10 @@ void cleanUp(void) {
     free(player);
     unloadLevel(level);
     free(level);
+    cleanFrames();
     cleanTiles(tiles);
     cleanUIWidgets();
+    cleanSound();
     printf("Cleaned up!\n");
 }
 
@@ -301,6 +306,13 @@ int initialize(void) {
 
     //Init NPCs
     initNPCs(renderer);
+
+    //Init Animation
+    initFrames(renderer);
+
+    //Init sound
+    initSound();
+    playGameTheme();
 
     //Set funtion pointers for game loop
     update = updateGame;
