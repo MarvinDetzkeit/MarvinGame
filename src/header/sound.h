@@ -9,6 +9,8 @@ void playSwitchLevelSound();
 
 void playGetItemSound();
 
+void playHitWallSound();
+
 void playGameTheme();
 
 void cleanSound();

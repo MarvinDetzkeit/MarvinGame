@@ -30,6 +30,7 @@ int numNPCs;
 
 int updateTalk(void *ptr);
 void renderTalk();
+void renderTalkNoName();
 void loadNPCText(NPC *npc);
 void initNPCs(SDL_Renderer *r);
 void initNPCsEditor(SDL_Renderer *r);

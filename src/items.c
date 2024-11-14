@@ -48,6 +48,8 @@ void renderItemScreen(void) {
 }
 
 int updateItemScreen(void *ptr) {
+    static uint8_t waitFrames = FPS / 2;
+    if (waitFrames) waitFrames--;
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -59,8 +61,10 @@ int updateItemScreen(void *ptr) {
                     case SDLK_ESCAPE:
                         return 0;
                     case SDLK_t:
+                        if (waitFrames > 0) break;
                         render = renderGame;
                         update = updateGame;
+                        waitFrames = FPS / 2;
                         break;
                     default:
                         break;

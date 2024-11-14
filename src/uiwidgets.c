@@ -5,6 +5,9 @@
 #include <SDL2/SDL_ttf.h>
 #include "header/constants.h"
 
+//Transparency value for Text box
+# define ALPHA 180
+
 SDL_Rect backgroundRect;
 SDL_Rect backgroundRectName;
 SDL_Rect textRect;
@@ -58,7 +61,7 @@ void createNameTexture(SDL_Renderer *r) {
 }
 
 void renderNameBox(SDL_Renderer *r) {
-    SDL_SetRenderDrawColor(r, 0, 0, 0, 100);
+    SDL_SetRenderDrawColor(r, 0, 0, 0, ALPHA);
     SDL_RenderFillRect(r, &backgroundRectName);
     SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
     SDL_RenderDrawRect(r, &backgroundRectName);
@@ -66,7 +69,7 @@ void renderNameBox(SDL_Renderer *r) {
 }
 
 void renderTextBox(SDL_Renderer *r) {
-    SDL_SetRenderDrawColor(r, 0, 0, 0, 100);
+    SDL_SetRenderDrawColor(r, 0, 0, 0, ALPHA);
     SDL_RenderFillRect(r, &backgroundRect);
     SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
     SDL_RenderDrawRect(r, &backgroundRect);
@@ -76,7 +79,7 @@ void renderTextBox(SDL_Renderer *r) {
 void renderItemBox(SDL_Renderer *r, SDL_Texture *itemSprite) {
     SDL_Rect box = {SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2};
     SDL_Rect itemRec = {(SCREEN_WIDTH - ITEMSIZE) / 2, (SCREEN_HEIGHT - ITEMSIZE) / 2, ITEMSIZE, ITEMSIZE};
-    SDL_SetRenderDrawColor(r, 0, 0, 0, 100);
+    SDL_SetRenderDrawColor(r, 0, 0, 0, ALPHA);
     SDL_RenderFillRect(r, &box);
     SDL_SetRenderDrawColor(r, 255, 255, 255, 255);
     SDL_RenderDrawRect(r, &box);

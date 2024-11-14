@@ -26,6 +26,25 @@ char *npcText;
 NPC *npcArr;
 int numNPCs;
 
+#define WAITFRAMEVALUE (FPS / 3)
+uint8_t waitFrames = WAITFRAMEVALUE;
+
+// Functions waitDialogue and ignoreThisPress implement a timer for the game to wait WAITFRAMEVALUE many Frames until the player
+// can go to the next line when talking to an NPC
+void waitDialogue() {
+    if (waitFrames > 0) {
+        waitFrames--;
+    }
+}
+
+uint8_t ignoreThisPress() {
+    if (waitFrames <= 0) {
+        waitFrames = WAITFRAMEVALUE;
+        return 0;
+    }
+    else return 1;
+}
+
 int updateQuest(void *ptr);
 int updateQuestB(void* ptr);
 int updateQuestC(void * ptr);
@@ -36,6 +55,7 @@ int updateTalk(void *ptr) {
         playClickSound();
         playSound = 0;
     }
+    waitDialogue();
     NPC *npc = (NPC *) ptr;
     SDL_Event event;
     npcText = npc->lines[npc->countOuter][npc->countInner];
@@ -48,6 +68,7 @@ int updateTalk(void *ptr) {
                     case SDLK_ESCAPE:
                         return 0;
                     case SDLK_t:
+                        if (ignoreThisPress()) break;
                         npc->countInner++;
                         if (npc->lines[npc->countOuter][npc->countInner] == NULL) {
                             npc->countOuter = (npc->countOuter + 1) % npc->numLines;
@@ -158,7 +179,7 @@ void initNPCs(SDL_Renderer *r) {
         SDL_FreeSurface(s);
         loadNPCText(npcArr + i);
         free(nameBuffer[i-1]);
-        npcArr[i].updateInteraction = updateQuest;
+        npcArr[i].updateInteraction = updateTalk;
         npcArr[i].renderInteraction = renderTalk;
     }
     free(nameBuffer);
@@ -180,14 +201,12 @@ void initNPCs(SDL_Renderer *r) {
     npcArr[1].hasThis = items[3];
     npcArr[1].needsThis = items[6];
 
-    //Hund
-    npcArr[4].updateInteraction = updateTalk;
 
     //Kemal
     npcArr[7].updateInteraction = updateQuestC;
 
     //Bushaltestelle
-    npcArr[10].updateInteraction = updateTalk;
+    npcArr[10].renderInteraction = renderTalkNoName;
 
     //Schatz Quest
     npcArr[8].hasThis = items[7];
@@ -198,7 +217,6 @@ void initNPCs(SDL_Renderer *r) {
     npcArr[9].hasThis = items[0];
     npcArr[9].updateInteraction = updateQuestB;
     npcArr[9].renderInteraction = renderTalkNoName;
-
 
     printf("Loaded %d NPCs in.\n", numNPCs);
 
@@ -275,6 +293,7 @@ int updateQuest(void *ptr) {
     static int numsLines[2]; //store nums of lines
     static int current = 0; // current line
     static int beforeOrAfter = 0; //0 for before; 1 for after
+    waitDialogue();
     //Load Quest Lines on first run
     if (!loaded) {
         questLines = malloc(sizeof(char**) * 2); //One text before giving item, One afterwards
@@ -311,6 +330,7 @@ int updateQuest(void *ptr) {
                     case SDLK_ESCAPE:
                         return 0;
                     case SDLK_t:
+                        if (ignoreThisPress()) break;
                         current++;
                         if (current == numsLines[beforeOrAfter]) {
                         switch (beforeOrAfter)
@@ -380,6 +400,7 @@ int updateQuestB(void* ptr) {
     static int numsLines[2]; //store nums of lines
     static int current = 0; // current line
     static int beforeOrAfter = 0; //0 for before; 1 for after
+    waitDialogue();
     //Load Quest Lines on first run
     if (!loaded) {
         questLines = malloc(sizeof(char**) * 2); //One text before giving item, One afterwards
@@ -416,6 +437,7 @@ int updateQuestB(void* ptr) {
                     case SDLK_ESCAPE:
                         return 0;
                     case SDLK_t:
+                        if (ignoreThisPress()) break;
                         current++;
                         if (current == numsLines[beforeOrAfter]) {
                         switch (beforeOrAfter)
@@ -473,6 +495,17 @@ int updateQuestC(void *ptr) {
     static int numsLines[2]; //store nums of lines
     static int current = 0; // current line
     static int beforeOrAfter = 0; //0 for before; 1 for after
+    static uint8_t firstTimeInteracting = 1;
+    waitDialogue();
+    //Activate quests for NPCs (only when executing this function for the first time)
+    if (firstTimeInteracting) {
+        firstTimeInteracting = 0;
+        npcArr[1].updateInteraction = updateQuest;
+        npcArr[2].updateInteraction = updateQuest;
+        npcArr[3].updateInteraction = updateQuest;
+        npcArr[5].updateInteraction = updateQuest;
+        npcArr[6].updateInteraction = updateQuest;
+    }
     //Load Quest Lines on first run
     if (!loaded) {
         questLines = malloc(sizeof(char**) * 2); //One text before giving item, One afterwards
@@ -509,6 +542,7 @@ int updateQuestC(void *ptr) {
                     case SDLK_ESCAPE:
                         return 0;
                     case SDLK_t:
+                        if (ignoreThisPress()) break;
                         current++;
                         if (current == numsLines[beforeOrAfter]) {
                         switch (beforeOrAfter)

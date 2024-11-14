@@ -146,4 +146,6 @@ sandGras.png
 sand0.png
 sandWater0.png
 water0.png
+gfence.png
+ggras.png
 x

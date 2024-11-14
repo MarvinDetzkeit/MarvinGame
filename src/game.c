@@ -75,6 +75,7 @@ void levelBlendEffect() {
 }
 
 void handleTeleportation() {
+    //getTile(level, (player->x + (TILESIZE / 2)) / TILESIZE, (player->y + TILESIZE - 1) / TILESIZE)
     int teleporter = getPlayerTile(player, level);
     if (!teleporter) return;
     playSwitchLevelSound();
@@ -91,7 +92,7 @@ void handleTeleportation() {
     //goto Level wohnung.lvl
     case 2:
         level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
-        level->playerY = (player->y / TILESIZE) + 1;
+        level->playerY = (player->y + TILESIZE - 1) / TILESIZE;
         strcpy(sublevel->name, "wohnung.lvl");
         loadLevel(sublevel);
         level = sublevel;
@@ -100,8 +101,8 @@ void handleTeleportation() {
         break;
     //goto Level omaundopa.lvl
     case 3:
-    level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
-        level->playerY = (player->y / TILESIZE) + 1;
+        level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
+        level->playerY = (player->y + TILESIZE - 1) / TILESIZE;
         strcpy(sublevel->name, "omaundopa.lvl");
         loadLevel(sublevel);
         level = sublevel;
@@ -110,9 +111,19 @@ void handleTeleportation() {
         break;
     //goto Level dixiklo.lvl
     case 4:
-    level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
-        level->playerY = (player->y / TILESIZE) + 1;
+        level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
+        level->playerY = (player->y + TILESIZE - 1) / TILESIZE;
         strcpy(sublevel->name, "dixiklo.lvl");
+        loadLevel(sublevel);
+        level = sublevel;
+        player->x = (level->playerX * TILESIZE);
+        player->y = (level->playerY * TILESIZE);
+        break;
+    //goto Level gisbertwiese.lvl
+    case 5:
+        level->playerX = (player->x + (TILESIZE / 2)) / TILESIZE;
+        level->playerY = (player->y + TILESIZE - 1) / TILESIZE;
+        strcpy(sublevel->name, "gisbertwiese.lvl");
         loadLevel(sublevel);
         level = sublevel;
         player->x = (level->playerX * TILESIZE);
@@ -181,10 +192,6 @@ int updateGame(void *ptr) {
                             player->movRight = 0;
                         }
                         break;
-                        case SDLK_i:
-                            itemSprite = items[1]->sprite;
-                            render = renderItemScreen;
-                            update = updateItemScreen;
                 }
         }
     }
@@ -279,12 +286,18 @@ int initialize(void) {
     //initialize level
     overworld = malloc(sizeof(Level));
     sublevel = malloc(sizeof(Level));
-    //strcpy(level->name, "wohnung.lvl");
     strcpy(overworld->name, "Luebeck.lvl");
     loadLevel(overworld);
+    overworld->playerX = 28;
+    overworld->playerY = 24;
+    //Player spawns in sublevel wohnung.lvl
+    strcpy(sublevel->name, "wohnung.lvl");
+    loadLevel(sublevel);
+    sublevel->playerX = 4;
+    sublevel->playerY = 5;
     levelObj.w = TILESIZE;
     levelObj.h = TILESIZE;
-    level = overworld;
+    level = sublevel;
     tiles = malloc(sizeof(Tiles));
     initTiles(tiles, renderer);
 
@@ -315,8 +328,12 @@ int initialize(void) {
     playGameTheme();
 
     //Set funtion pointers for game loop
-    update = updateGame;
-    render = renderGame;
+    //update = updateGame;
+    //render = renderGame;
+    //Start game with the turorial
+    update = updateTalk;
+    render = renderTalkNoName;
+    updatePTR = npcArr + 12;
 
     return 1;
 }

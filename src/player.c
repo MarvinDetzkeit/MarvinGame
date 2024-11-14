@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 #include "header/constants.h"
 #include "header/level.h"
+#include "header/sound.h"
 
 typedef struct
 {
@@ -26,6 +27,11 @@ void printPlayerPosition(Player* p) {
 //for each direction, it checks 2 corners of the player rect; now it checks a smaller rect which aligns with the player sprite
 //Collision only works properly for positive coordinates (level coordinates are always positive - levels start at (0, 0))
 void movePlayer(Player *p, Level *l) {
+    //variables for playing wall hit sound
+    static uint8_t leftWall = 1;
+    static uint8_t rightWall = 1;
+    static uint8_t upWall = 1;
+    static uint8_t downWall = 1;
     //counts frames to chose right animation sprite
     static int frameCounter = 0;
     static int innerAnimation = 0;
@@ -34,30 +40,54 @@ void movePlayer(Player *p, Level *l) {
         p->x -= PLAYERSPEED - (p->movUp + p->movDown) * (PLAYERSPEED / 4);
         if (tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + (TILESIZE / 4)) / TILESIZE)) || tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
             p->x += TILESIZE - (p->x % TILESIZE) - (TILESIZE / 4);
+            if (leftWall) {
+                leftWall = 0;
+                playHitWallSound();
+            }
         }
+        else leftWall = 1;
         outerAnimation = 3;
     }
+
     if (p->movRight) {
         p->x += PLAYERSPEED - (p->movUp + p->movDown) * (PLAYERSPEED / 4);
         if (tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + (TILESIZE / 4)) / TILESIZE)) || tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
             p->x -= (p->x % TILESIZE) - (TILESIZE / 4);
+            if (rightWall) {
+                rightWall = 0;
+                playHitWallSound();
+            }
         }
+        else rightWall = 1;
         outerAnimation = 6;
     }
+
     if (p->movUp) {
         p->y -= PLAYERSPEED - ((p->movLeft + p->movRight) * (PLAYERSPEED / 4));
         if (tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + (TILESIZE / 4)) / TILESIZE)) || tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + + (TILESIZE / 4)) / TILESIZE))) {
             p->y += TILESIZE - (p->y % TILESIZE) - (TILESIZE / 4);
+            if (upWall) {
+                upWall = 0;
+                playHitWallSound();
+            }
         }
+        else upWall = 1;
         outerAnimation = 9;
     }
+
     if (p->movDown) {
         p->y += PLAYERSPEED - (p->movLeft + p->movRight) * (PLAYERSPEED / 4);
         if (tileHasCollision(getTile(l, (p->x + (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE)) || tileHasCollision(getTile(l, ((p->x + TILESIZE-1) - (TILESIZE / 4)) / TILESIZE, (p->y + TILESIZE-1) / TILESIZE))) {
             p->y -= (p->y % TILESIZE);
+            if (downWall) {
+                downWall = 0;
+                playHitWallSound();
+            }
         }
+        else downWall = 1;
         outerAnimation = 0;
     }
+    
     if (!(p->movDown || p->movUp || p->movRight || p->movLeft)) {
         innerAnimation = 0;
     }
