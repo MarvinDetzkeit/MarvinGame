@@ -1,6 +1,8 @@
 # MarvinGame
 A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI).
 
+![Bild](src/pics/game.png)
+
 ## How to run
 You need to install SDL2, SDL2\_ttf, SDL2\_image and SDL2\_mixer and add the headers to your _CPATH_.
 
