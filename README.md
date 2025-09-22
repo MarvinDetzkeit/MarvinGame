@@ -1,29 +1,8 @@
 # MarvinGame
-A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI). In the game, you play as me, the main mission is to find the Döner recipe.
-This was my first ever C project, and I learned a lot. I made a lot of mistakes, the biggest one is how header files are used, which I won't change as it is already too late for that.
-
-## Game
-### Features
-![Current State of the game](src/pics/game.png)
-
-- Player can move
-- Walking animation
-- The camera scrolls with the player
-- Collision
-- Dialogue system
-- Sound
-- All pixel art (except one tile) was created by me
-
-### Level Editor
-![Level Editor](src/pics/levelEditor.png)
-
-- Level editor for building levels up to 1000x1000 Tiles in size
-- You can place Tiles and give them collision
-- You can set the player spawn point
-- You can place NPCs
+A 2D-Topdown game with Pixel graphics, written in C using [SDL2](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.libsdl.org/&ved=2ahUKEwjytPvIxYqGAxU9X_EDHRvfBC4QFnoECBAQAQ&usg=AOvVaw0UKX-Hd5cnZaTK_nk7m-ZI).
 
 ## How to run
-You need to install SDL2, SDL2\_ttf, SDL2\_image and SDL2\_mixer. You might have to add them to your Path as well.
+You need to install SDL2, SDL2\_ttf, SDL2\_image and SDL2\_mixer and add the headers to your _CPATH_.
 
 ### Install Dependencies on Mac
 ```
@@ -34,6 +13,19 @@ brew install sdl2 sdl2_ttf sdl2_image sdl2_mixer
 ```
 git clone https://github.com/MarvinDetzkeit/MarvinGame
 ```
+
+### Correct Game Speed
+The game logic doesn't use delta time and is tied to 60 fps. To have the game run at the correct speed, change the constant
+`VSYNC_WAIT_FRAMES` in line 16 of `src/main.c` to your monitor's refresh rate divided by 60 (use integer). If your monitor's
+refresh rate isn't a multiple of 60, use the nearest multiple of 60.
+
+| Refresh Rate | VSYNC\_WAIT\_FRAMES |
+|---|---|
+| 60 | 1|
+| 120 | 2|
+| 180 | 3 |
+| ... | ...|
+
 ### Compile
 ```
 cd MarvinGame

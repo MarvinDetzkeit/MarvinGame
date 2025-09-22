@@ -1,3 +1,6 @@
-.vscode/c_cpp_properties.json
-.vscode/launch.json
-.vscode/tasks.json
+.vscode
+calc
+MarvinGame
+MarvinEditor
+Dixi.aseprite
+Holstentor.aseprite

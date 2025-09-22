@@ -276,7 +276,7 @@ int initialize(void) {
     printf("Window Created Size: %d x %d\n", width, height);
 
     //init renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
         fprintf(stderr, "Failed to create renderer.\n");
         return 0;
