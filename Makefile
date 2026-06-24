@@ -10,10 +10,10 @@ EDITOR_FILES=$(filter-out $(SRC_DIR)/main.c $(SRC_DIR)/game.c, $(wildcard $(SRC_
 all: build editor
 
 build:
-	$(CC) -o2 $(CFLAGS) -o MarvinGame $(GAME_FILES)
+	$(CC) -O2 $(CFLAGS) -o MarvinGame $(GAME_FILES)
 
 editor:
-	$(CC) -o2 $(CFLAGS) -o MarvinEditor $(EDITOR_FILES)
+	$(CC) -O2 $(CFLAGS) -o MarvinEditor $(EDITOR_FILES)
 
 run:
 	./MarvinGame
