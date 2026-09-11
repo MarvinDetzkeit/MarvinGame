@@ -192,6 +192,14 @@ int updateGame(void *ptr) {
                             player->movRight = 0;
                         }
                         break;
+                    case SDLK_i:
+                        player->movDown = 0;
+                        player->movUp = 0;
+                        player->movLeft = 0;
+                        player->movRight = 0;
+                        update = updateInventory;
+                        render = renderInventory;
+                        break;
                 }
         }
     }
@@ -315,7 +323,7 @@ int initialize(void) {
     initCamera(camera, player->x, player->y);
 
     //Init UIWidgets
-    initUIWidgets();
+    initUIWidgets(renderer);
 
     //Init NPCs
     initNPCs(renderer);

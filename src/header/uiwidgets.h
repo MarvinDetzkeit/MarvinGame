@@ -23,12 +23,14 @@ typedef struct {
 } Textbox;
 
 // Function declarations
-void initUIWidgets();
+void initUIWidgets(SDL_Renderer *r);
 void createTextTure(SDL_Renderer *r, char *text);
 void renderTextBox(SDL_Renderer *r);
 void createNameTexture(SDL_Renderer *r);
 void renderNameBox(SDL_Renderer *r);
 void renderItemBox(SDL_Renderer *r, SDL_Texture *itemSprite);
+int updateInventory(void *ptr);
+void renderInventory(void);
 void cleanUIWidgets();
 
 #endif // UI_WIDGETS_H

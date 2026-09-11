@@ -121,6 +121,7 @@ void loadNPCText(NPC *npc) {
         line[strlen(line) - 1] = 0;
         switch (strlen(line)) {
             case 0:
+                npc->lines[npc->numLines][lineCount] = NULL;
                 run = 0;
                 break;
             case 1:
@@ -267,21 +268,11 @@ void initNPCsEditor(SDL_Renderer *r) {
 }
 
 void cleanNPC(NPC *n) {
-    int countInner = 0;
-    int countOuter = 0;
-    while (1) {
-        while (1) {
-            if (n->lines[countOuter][countInner] == NULL) {
-                countInner = 0;
-                countOuter++;
-                break;
-            }
+    for (int countOuter = 0; countOuter < n->numLines; countOuter++) {
+        for (int countInner = 0; n->lines[countOuter][countInner] != NULL; countInner++) {
             free(n->lines[countOuter][countInner]);
-            countInner++;
         }
-        if (n->lines[countOuter] == NULL) break;
         free(n->lines[countOuter]);
-        countOuter++;
     }
     free(n->lines);
 }

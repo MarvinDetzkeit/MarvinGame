@@ -494,8 +494,12 @@ void renderEditor(void) {
         tileItem.y = npcBox.y + 3;
         renderTile(renderer, npcArr[npcNumber].sprite, &tileItem);
     }
+    SDL_Rect modeTextRect;
+    SDL_QueryTexture(modeName[mode], NULL, NULL, &modeTextRect.w, &modeTextRect.h);
+    modeTextRect.x = modeRect.x + ((modeRect.w - modeTextRect.w) / 2);
+    modeTextRect.y = modeRect.y + ((modeRect.h - modeTextRect.h) / 2);
     SDL_RenderFillRect(renderer, &modeRect);
-    SDL_RenderCopy(renderer, modeName[mode], NULL, &modeRect);
+    SDL_RenderCopy(renderer, modeName[mode], NULL, &modeTextRect);
 
     SDL_RenderPresent(renderer);
 }
@@ -525,10 +529,6 @@ void saveLevel(Level *l) {
 }
 
 void cleanUpEditor(void) {
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    IMG_Quit();
     free(player);
     unloadLevel(level);
     free(level);
@@ -544,6 +544,10 @@ void cleanUpEditor(void) {
     }
     free(modeName);
     free(modes);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    IMG_Quit();
     printf("Cleaned up!\n");
 }
 
